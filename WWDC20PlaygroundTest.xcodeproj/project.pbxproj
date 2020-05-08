@@ -14,6 +14,7 @@
 		EA2618692462A7EA00ADFE5C /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = EA2618682462A7EA00ADFE5C /* Assets.xcassets */; };
 		EA26186C2462A7EA00ADFE5C /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = EA26186B2462A7EA00ADFE5C /* Preview Assets.xcassets */; };
 		EA26186F2462A7EA00ADFE5C /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = EA26186D2462A7EA00ADFE5C /* LaunchScreen.storyboard */; };
+		EAFAA58124653BB00006CAFF /* DataModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = EAFAA58024653BB00006CAFF /* DataModel.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -26,6 +27,7 @@
 		EA26186B2462A7EA00ADFE5C /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		EA26186E2462A7EA00ADFE5C /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		EA2618702462A7EA00ADFE5C /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		EAFAA58024653BB00006CAFF /* DataModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataModel.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -61,6 +63,7 @@
 				EA26185F2462A7E300ADFE5C /* AppDelegate.swift */,
 				EA2618612462A7E300ADFE5C /* SceneDelegate.swift */,
 				EA2618662462A7E300ADFE5C /* ContentView.swift */,
+				EAFAA58024653BB00006CAFF /* DataModel.swift */,
 				EA2618682462A7EA00ADFE5C /* Assets.xcassets */,
 				EA26186D2462A7EA00ADFE5C /* LaunchScreen.storyboard */,
 				EA2618702462A7EA00ADFE5C /* Info.plist */,
@@ -149,6 +152,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				EAFAA58124653BB00006CAFF /* DataModel.swift in Sources */,
 				EA2618602462A7E300ADFE5C /* AppDelegate.swift in Sources */,
 				EA2618652462A7E300ADFE5C /* WWDC20PlaygroundTest.xcdatamodeld in Sources */,
 				EA2618672462A7E300ADFE5C /* ContentView.swift in Sources */,
