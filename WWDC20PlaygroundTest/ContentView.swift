@@ -10,55 +10,62 @@ import SwiftUI
 
 let NPCSize: CGFloat = 50
 let PlayerSize: CGFloat = 60
-var screenWidth: CGFloat {
-    return UIScreen.main.bounds.width
-}
-var screenHeight: CGFloat {
-    return UIScreen.main.bounds.height
-}
-
-var playerCoord: CGSize = .zero
-
-struct PassengerView: View {
-    var body: some View {
-        Image(systemName: "person.circle.fill")
-            .resizable()
-    }
-}
 
 var currentPosition: CGSize = .zero
 var newPosition: CGSize = .zero
 
+// MARK: - NPC
+struct NPCView: View {
+    var body: some View {
+        Image(systemName: "person.circle.fill")
+            .resizable()
+            .frame(width: NPCSize, height: NPCSize)
+    }
+}
+
+struct NPCMap: View {
+    @Binding var userDragging: Bool
+    @Binding var npcCoords: [ScreenCoordinate]
+    
+    var body: some View {
+        ZStack {
+            ForEach(npcCoords, id: \.self) { coord in
+                NPCView()
+                    .position(x: coord.x, y: coord.y)
+                    .opacity(self.userDragging ? 0.5 : 1.0)
+                    .animation(.easeInOut)
+            }
+        }
+        
+    }
+}
+
+// MARK: - Player
 struct PlayerView: View {
     
     @Binding var inputX: CGFloat
     @Binding var inputY: CGFloat
-    @Binding var showDest: Bool
-    @Binding var playerDest: CGSize
-    
-    @State var playerposition: CGSize = .zero
+    @Binding var showPathPreview: Bool
     
     var body: some View {
         
         ZStack {
-            
-//            Text("\(testCG.width)").offset(CGSize(width: 0, height: -100))
-//            Text("\(testCG.height)").offset(CGSize(width: 0, height: -120))
-            
+            // path preview
             Image(systemName: "xmark.circle")
                 .resizable()
                 .frame(width: 40, height: 40)
                 .offset(destinationPreviewCalculation(inputX: inputX, inputY: inputY))
-                .foregroundColor(Color.red.opacity(showDest ? 1 : 0))
+                .foregroundColor(Color.red.opacity(showPathPreview ? 1 : 0))
                 .font(.system(size: 25, weight: .bold))
             
+            // player icon
             Circle()
                 .frame(width: PlayerSize, height: PlayerSize)
                 .foregroundColor(Color.blue)
                 .animation(Animation.easeInOut.speed(5))
             
         }
-        .offset(showDest ? newPosition : playerCurrentPosition())
+        .offset(showPathPreview ? newPosition : playerCurrentPosition())
         
         
     }
@@ -111,6 +118,7 @@ struct PlayerView: View {
     
 }
 
+// MARK: - Interface
 struct InterfaceView: View {
     
     @Binding var distance: CGFloat
@@ -118,8 +126,6 @@ struct InterfaceView: View {
     @Binding var yDistance: CGFloat
     @Binding var userDragging: Bool
     @Binding var passengerCoords: [ScreenCoordinate]
-    @Binding var playerDest: CGSize
-    
     
     let passengerCount: Int = 10
     
@@ -137,102 +143,83 @@ struct InterfaceView: View {
             
             NPCMap(userDragging: $userDragging, npcCoords: $passengerCoords)
             
-            PlayerView(inputX: $xDistance, inputY: $yDistance, showDest: $userDragging, playerDest: $playerDest)
+            PlayerView(inputX: $xDistance, inputY: $yDistance, showPathPreview: $userDragging)
         }
         .background(Color.white.opacity(0.00001))
         
     }
 }
 
-struct NPCMap: View {
-    @Binding var userDragging: Bool
-    @Binding var npcCoords: [ScreenCoordinate]
-    
-    var body: some View {
-        ZStack {
-            ForEach(npcCoords, id: \.self) { coord in
-                PassengerView()
-                    .frame(width: NPCSize, height: NPCSize)
-                    .position(x: coord.x, y: coord.y)
-                    .opacity(self.userDragging ? 0.5 : 1.0)
-                    .animation(.easeInOut)
-            }
-            
-        }
-        
-    }
-}
-
+// MARK: - ContentView
 struct ContentView: View {
     
-    @State private var distance: CGFloat = 0
     @State private var xDistance: CGFloat = 0
     @State private var yDistance: CGFloat = 0
-    @State private var userDragging: Bool = false
-    @State private var playerLocation: CGSize = .zero
+    @State private var distance: CGFloat = 0
+    @State private var isDragging: Bool = false
     
-    @State private var scW: CGFloat = 0
-    @State private var scH: CGFloat = 0
+    @State private var viewWidth: CGFloat = 0
+    @State private var viewHeight: CGFloat = 0
     
-    @State private var passengerCoords: [ScreenCoordinate] = []
+    @State private var npcInitialCoords: [ScreenCoordinate] = []
     
-    @State private var passengerCount = 10
+    @State private var npcCount = 10
+    
+    @State private var initialized = false
     
     var body: some View {
         VStack {
             
-            GeometryReader { geometry in
-                Button(action: {
-                    self.passengerCoords = self.generatePassengerCoords()
-                    self.scW = geometry.size.width
-                    self.scH = geometry.size.height
-                }) {
-                    Text("\(self.scW),\(self.scH)")
-                }
-                
+            if !initialized {
+                GeometryReader { geometry in
+                    Button(action: {
+                        self.viewWidth = geometry.size.width
+                        self.viewHeight = geometry.size.height
+                        self.npcInitialCoords = self.generateNPCCoords(viewWidth: self.viewWidth, viewHeight: self.viewHeight)
+                        self.initialized = true
+                    }) {
+                        Text("Initialize")
+                    }
+                    
+                }.edgesIgnoringSafeArea(.all)
+            } else {
+                InterfaceView(distance: $distance, xDistance: $xDistance, yDistance: $yDistance, userDragging: $isDragging, passengerCoords: $npcInitialCoords)
+                    .gesture(DragGesture()
+                        .onChanged({ value in
+                            self.isDragging = true
+                            self.xDistance = value.translation.width
+                            self.yDistance = value.translation.height
+                            self.distance = (self.xDistance * self.xDistance + self.yDistance * self.yDistance).squareRoot()
+                            
+                        })
+                        .onEnded({ (value) in
+                            self.isDragging = false
+                        })
+                )
             }
             
-            
-            InterfaceView(distance: $distance, xDistance: $xDistance, yDistance: $yDistance, userDragging: $userDragging, passengerCoords: $passengerCoords, playerDest: $playerLocation)
-                .gesture(DragGesture()
-                    .onChanged({ value in
-                        self.userDragging = true
-                        self.xDistance = value.translation.width
-                        self.yDistance = value.translation.height
-                        self.distance = (self.xDistance * self.xDistance + self.yDistance * self.yDistance).squareRoot()
-                        
-                    })
-                    .onEnded({ (value) in
-                        self.userDragging = false
-                        
-                        self.playerLocation = CGSize(width: value.translation.width, height: value.translation.height)
-                    })
-            )
         }
         
     }
     
-    private func generatePassengerCoords() -> [ScreenCoordinate] {
-        //        print(screenWidth)
-        //        print(screenHeight)
-        //        print(passengerCoords)
+    private func generateNPCCoords(viewWidth: CGFloat, viewHeight: CGFloat) -> [ScreenCoordinate] {
         var resultCoords: [ScreenCoordinate] = []
-        for _ in 0...passengerCount {
-            var localSlotX = Int((screenWidth / NPCSize) - 1)
+        for _ in 0...npcCount {
+            var localSlotX = Int((viewWidth / NPCSize) - 1)
             var randX = CGFloat(Int.random(in: 0...localSlotX) * Int(NPCSize) + Int(NPCSize) / 2)
             resultCoords.forEach { coord in
                 if coord.x == randX {
-                    localSlotX = Int((screenWidth / NPCSize) - 1)
+                    localSlotX = Int((viewWidth / NPCSize) - 1)
                     randX = CGFloat(Int.random(in: 0...localSlotX) * Int(NPCSize) + Int(NPCSize) / 2)
                 }
             }
             
-            var localSlotY = Int((screenHeight / NPCSize) - 3)
+            var localSlotY = Int((viewHeight / NPCSize) - 3)
             var randY = CGFloat(Int.random(in: 0...localSlotY) * Int(NPCSize) + Int(NPCSize) / 2)
             
             resultCoords.forEach { coord in
                 if coord.y == randY {
-                    localSlotY = Int((screenHeight / NPCSize) - 3)
+                    localSlotY = Int((viewHeight / NPCSize) - 3)
                     randY = CGFloat(Int.random(in: 0...localSlotY) * Int(NPCSize) + Int(NPCSize) / 2)
                 }
             }
@@ -245,10 +232,10 @@ struct ContentView: View {
     }
 }
 
+
+// MARK: - Preview
 struct ContentView_Previews: PreviewProvider {
     static var previews: some View {
         ContentView()
     }
 }
-
-
