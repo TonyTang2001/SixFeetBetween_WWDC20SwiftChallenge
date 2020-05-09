@@ -19,7 +19,7 @@ public func getDistance(x: CGFloat, y: CGFloat) -> CGFloat {
 }
 
 // MARK: - MapSetting
-struct GroundMap: View {
+struct GroundMapView: View {
     var body: some View {
         VStack {
             Image(systemName: "house")
@@ -45,7 +45,9 @@ struct NPCView: View {
                 .opacity(self.isDragging ? 0.6 : 1.0)
                 .animation(Animation.easeInOut.speed(0.8))
                 .clipShape(Circle())
+                
             
+            // warning range indicator
             Circle()
                 .frame(width: NPCSize * 1.5, height: NPCSize * 1.5)
                 .opacity(self.isDragging ? 0 : 0)
@@ -91,11 +93,31 @@ struct MovePathIndicatorView: View {
     }
 }
 
+struct Shake: GeometryEffect {
+    var amount: CGFloat = 10
+    var shakesPerUnit = 3
+    var animatableData: CGFloat
+
+    func effectValue(size: CGSize) -> ProjectionTransform {
+        if animatableData != 0 {
+            return ProjectionTransform(CGAffineTransform(translationX:
+            amount * sin(animatableData * .pi * CGFloat(shakesPerUnit)),
+            y: 0))
+        } else {
+            return ProjectionTransform(CGAffineTransform(translationX: 0,
+            y: 0))
+        }
+        
+    }
+}
+
 struct PlayerView: View {
     
     @Binding var inputX: CGFloat
     @Binding var inputY: CGFloat
     @Binding var showPathPreview: Bool
+    
+    @State var attempts: Int = 0
     
     var body: some View {
         
@@ -106,7 +128,7 @@ struct PlayerView: View {
                 .resizable()
                 .frame(width: PlayerSize, height: PlayerSize)
                 .offset(destinationPreviewCalculation(inputX: inputX, inputY: inputY))
-                .foregroundColor(Color.blue.opacity(showPathPreview ? 1 : 0))
+                .foregroundColor(Color.red.opacity(showPathPreview ? 1 : 0))
                 .font(.system(size: 25, weight: .bold))
             
             // player icon
@@ -114,8 +136,8 @@ struct PlayerView: View {
                 .frame(width: PlayerSize, height: PlayerSize)
                 .foregroundColor(Color.blue)
                 .animation(Animation.spring(response: 0.3, dampingFraction: 0.825, blendDuration: 0))
+                .modifier(Shake(animatableData: CGFloat(attempts)))
                 
-            
         }
         .offset(showPathPreview ? newPosition : playerCurrentPosition())
         
@@ -127,11 +149,17 @@ struct PlayerView: View {
         
         currentPosition = CGSize(width: jump.width + newPosition.width, height: jump.height + newPosition.height)
         
-        
-        
         if currentPosition.width + viewWidth/2 < 0 {
             print("negative")
-            // FIXME: do something to indicate invalid move
+            
+            // have to use async here to prevent updating state variable during UI rerendering
+            DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
+                // trigger shaking animation to indicate invalid move warning
+                withAnimation(.default) {
+                    self.attempts += 1
+                    self.showPathPreview = true
+                }
+            }
             
         } else {
             newPosition = currentPosition
@@ -275,7 +303,7 @@ struct ContentView: View {
                 
             }
             
-            GroundMap()
+            GroundMapView()
             
         }
         
