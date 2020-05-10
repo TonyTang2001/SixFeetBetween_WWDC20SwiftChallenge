@@ -14,8 +14,36 @@ let PlayerSize: CGFloat = 45
 var currentPosition: CGSize = .zero
 var newPosition: CGSize = .zero
 
+var npcCoords: [ScreenCoordinate] = []
+
 public func getDistance(x: CGFloat, y: CGFloat) -> CGFloat {
     return (x * x + y * y).squareRoot()
+}
+
+// MARK: - Animation
+struct Shake: GeometryEffect {
+    var amount: CGFloat = 8
+    var shakesPerUnit: CGFloat = 5
+    var animatableData: CGFloat
+    
+    func effectValue(size: CGSize) -> ProjectionTransform {
+        ProjectionTransform(
+            CGAffineTransform(translationX: amount * sin(animatableData * .pi * shakesPerUnit), y: 0)
+        )
+    }
+}
+
+struct MoveNPC: GeometryEffect {
+    var destCoord: ScreenCoordinate
+    var multiplier: CGFloat
+    
+    func effectValue(size: CGSize) -> ProjectionTransform {
+        ProjectionTransform(
+            CGAffineTransform(translationX: destCoord.x * multiplier, y: destCoord.y * multiplier)
+        )
+        
+        
+    }
 }
 
 // MARK: - MapSetting
@@ -36,6 +64,10 @@ struct NPCView: View {
     
     @Binding var isDragging: Bool
     
+    @State var attempts: CGFloat = 0
+    
+    var initialCoord: ScreenCoordinate
+    
     var body: some View {
         
         ZStack {
@@ -45,7 +77,6 @@ struct NPCView: View {
                 .opacity(self.isDragging ? 0.6 : 1.0)
                 .animation(Animation.easeInOut.speed(0.8))
                 .clipShape(Circle())
-                
             
             // warning range indicator
             Circle()
@@ -54,23 +85,36 @@ struct NPCView: View {
                 .overlay(
                     Circle()
                         .stroke(Color.red.opacity(self.isDragging ? 0.9 : 0), lineWidth: self.isDragging ? NPCSize/2 : 0)
-                    .animation(Animation.easeInOut.speed(0.8))
-                )
+                        .animation(Animation.easeInOut.speed(0.8))
+            )
         }
+        .position(x: initialCoord.x, y: initialCoord.y)
+        .modifier(anim())
+        .gesture(
+            TapGesture()
+                .onEnded({ value in
+                    self.attempts += 1
+                })
+        )
+        
+    }
+    
+    func anim() -> MoveNPC {
+        MoveNPC(destCoord: ScreenCoordinate(x: 100, y: 100), multiplier: attempts)
     }
     
 }
 
 struct NPCMap: View {
     @Binding var isDragging: Bool
-    @Binding var npcCoords: [ScreenCoordinate]
+    //    @Binding var npcCoords: [ScreenCoordinate]
     
     var body: some View {
         ZStack {
             ForEach(npcCoords, id: \.self) { coord in
-                NPCView(isDragging: self.$isDragging)
-                    .position(x: coord.x, y: coord.y)
-                    
+                NPCView(isDragging: self.$isDragging, initialCoord: coord)
+                
+                
             }
         }
         
@@ -78,7 +122,6 @@ struct NPCMap: View {
 }
 
 // MARK: - Player
-
 struct MovePathIndicatorView: View {
     @Binding var showPathPreview: Bool
     @State var destCoord: CGSize
@@ -93,23 +136,6 @@ struct MovePathIndicatorView: View {
     }
 }
 
-struct Shake: GeometryEffect {
-    var amount: CGFloat = 10
-    var shakesPerUnit = 3
-    var animatableData: CGFloat
-
-    func effectValue(size: CGSize) -> ProjectionTransform {
-        if animatableData != 0 {
-            return ProjectionTransform(CGAffineTransform(translationX:
-            amount * sin(animatableData * .pi * CGFloat(shakesPerUnit)),
-            y: 0))
-        } else {
-            return ProjectionTransform(CGAffineTransform(translationX: 0,
-            y: 0))
-        }
-        
-    }
-}
 
 struct PlayerView: View {
     
@@ -135,9 +161,11 @@ struct PlayerView: View {
             Circle()
                 .frame(width: PlayerSize, height: PlayerSize)
                 .foregroundColor(Color.blue)
-                .animation(Animation.spring(response: 0.3, dampingFraction: 0.825, blendDuration: 0))
+                // warning animation modifier
                 .modifier(Shake(animatableData: CGFloat(attempts)))
-                
+                // movement animation
+                .animation(Animation.spring(response: 0.3, dampingFraction: 0.825, blendDuration: 0))
+            
         }
         .offset(showPathPreview ? newPosition : playerCurrentPosition())
         
@@ -223,7 +251,6 @@ struct InterfaceView: View {
     @Binding var xDistance: CGFloat
     @Binding var yDistance: CGFloat
     @Binding var isDragging: Bool
-    @Binding var npcCoords: [ScreenCoordinate]
     
     var body: some View {
         
@@ -237,7 +264,7 @@ struct InterfaceView: View {
             
             Spacer()
             
-            NPCMap(isDragging: $isDragging, npcCoords: $npcCoords)
+            NPCMap(isDragging: $isDragging)
             
             PlayerView(inputX: $xDistance, inputY: $yDistance, showPathPreview: $isDragging)
         }
@@ -257,12 +284,6 @@ struct ContentView: View {
     @State private var distance: CGFloat = 0
     @State private var isDragging: Bool = false
     
-//    @State private var viewWidth: CGFloat = 0
-//    @State private var viewHeight: CGFloat = 0
-    
-    @State private var npcInitialCoords: [ScreenCoordinate] = []
-//    @State private var npcMovementDest
-    
     @State private var npcCount = 15
     
     @State private var initialized = false
@@ -277,16 +298,15 @@ struct ContentView: View {
                         Button(action: {
                             viewWidth = geometry.size.width
                             viewHeight = geometry.size.height
-                            self.npcInitialCoords = self.generateNPCCoords(viewWidth: viewWidth, viewHeight: viewHeight)
+                            npcCoords = self.generateNPCCoords(viewWidth: viewWidth, viewHeight: viewHeight)
                             self.initialized = true
                         }) {
                             Text("Initialize")
                         }
-                        
                     }
                     
                 } else {
-                    InterfaceView(distance: $distance, xDistance: $xDistance, yDistance: $yDistance, isDragging: $isDragging, npcCoords: $npcInitialCoords)
+                    InterfaceView(distance: $distance, xDistance: $xDistance, yDistance: $yDistance, isDragging: $isDragging)
                         .gesture(DragGesture()
                             .onChanged({ value in
                                 self.isDragging = true
