@@ -33,16 +33,12 @@ struct Shake: GeometryEffect {
     }
 }
 
-struct MoveNPC: GeometryEffect {
-    var destCoord: ScreenCoordinate
-    var multiplier: CGFloat
-    
-    func effectValue(size: CGSize) -> ProjectionTransform {
-        ProjectionTransform(
-            CGAffineTransform(translationX: destCoord.x * multiplier, y: destCoord.y * multiplier)
-        )
-        
-        
+extension Animation {
+    static func ripple(index: Int) -> Animation {
+        //        CGAffineTransform(translationX: 100, y: 100)
+        Animation.spring(dampingFraction: 0.5)
+            .speed(2)
+            .delay(0 * Double(index))
     }
 }
 
@@ -60,21 +56,18 @@ struct GroundMapView: View {
 }
 
 // MARK: - NPC
-struct NPCView: View {
+
+struct NPCInternalView: View {
     
     @Binding var isDragging: Bool
     
-    @State var attempts: CGFloat = 0
-    
-    var initialCoord: ScreenCoordinate
-    
     var body: some View {
-        
         ZStack {
             Image(systemName: "person.circle.fill")
                 .resizable()
                 .frame(width: NPCSize, height: NPCSize)
                 .opacity(self.isDragging ? 0.6 : 1.0)
+                .transition(.opacity)
                 .animation(Animation.easeInOut.speed(0.8))
                 .clipShape(Circle())
             
@@ -87,36 +80,57 @@ struct NPCView: View {
                         .stroke(Color.red.opacity(self.isDragging ? 0.9 : 0), lineWidth: self.isDragging ? NPCSize/2 : 0)
                         .animation(Animation.easeInOut.speed(0.8))
             )
+            
         }
-        .position(x: initialCoord.x, y: initialCoord.y)
-        .modifier(anim())
-        .gesture(
-            TapGesture()
-                .onEnded({ value in
+        .drawingGroup()
+    }
+}
+struct NPCView: View {
+    
+    @Binding var isDragging: Bool
+    
+    @State var attempts: CGFloat = 0
+    
+    @State var moving: Bool = false
+    
+    var initialCoord: ScreenCoordinate
+    
+    private let animation = Animation.easeInOut(duration: 3).repeatForever(autoreverses: true)
+    
+    
+    var body: some View {
+        
+        NPCInternalView(isDragging: $isDragging)
+            .position(x: initialCoord.x, y: initialCoord.y)
+            .offset(x: moving ? attempts * 100 : 1, y: 0)
+            .onAppear {
+                withAnimation(self.animation, {
+                    self.moving.toggle()
                     self.attempts += 1
                 })
-        )
-        
-    }
-    
-    func anim() -> MoveNPC {
-        MoveNPC(destCoord: ScreenCoordinate(x: 100, y: 100), multiplier: attempts)
+        }
+        //        .offset(x: self.attempts * 100, y: self.attempts * 100)
+        //        .animation(.ripple(index: 1))
+        //            .gesture(
+        //                TapGesture()
+        //                    .onEnded({ value in
+        //                        self.attempts += 1
+        //                    })
+        //        )
     }
     
 }
 
 struct NPCMap: View {
     @Binding var isDragging: Bool
-    //    @Binding var npcCoords: [ScreenCoordinate]
     
     var body: some View {
         ZStack {
             ForEach(npcCoords, id: \.self) { coord in
                 NPCView(isDragging: self.$isDragging, initialCoord: coord)
-                
-                
             }
         }
+        //        .drawingGroup()
         
     }
 }
@@ -284,7 +298,7 @@ struct ContentView: View {
     @State private var distance: CGFloat = 0
     @State private var isDragging: Bool = false
     
-    @State private var npcCount = 15
+    @State private var npcCount = 30
     
     @State private var initialized = false
     
