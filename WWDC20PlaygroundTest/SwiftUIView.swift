@@ -15,15 +15,33 @@ struct SwiftUIView: View {
     private let maxScale: CGFloat = 2
     
     var body: some View {
-        TestSeparateView(isAtMaxScale: $isAtMaxScale)
-            .font(.largeTitle)
-            .offset(x: isAtMaxScale ? 100 : 0, y: 0)
-            .scaleEffect(isAtMaxScale ? maxScale : 1)
-            .onAppear {
-                withAnimation(self.animation, {
-                    self.isAtMaxScale.toggle()
-                })
+        HStack {
+            Spacer()
+            
+            Circle()
+                .frame(width: 50, height: 50)
+                .overlay(
+                    ZStack {
+                        RoundedRectangle(cornerRadius: 25)
+                            .stroke(Color.blue, lineWidth: 20)
+                        
+                        RoundedRectangle(cornerRadius: 25)
+                            .strokeBorder(Color.black, lineWidth: 20)
+                        
+                    }
+                    
+                )
+            
+            Spacer()
+            
+            Circle()
+                .frame(width: 50, height: 50)
+                .padding(20)
+                .border(Color.blue, width: 20)
+            
+            Spacer()
         }
+        
     }
 }
 

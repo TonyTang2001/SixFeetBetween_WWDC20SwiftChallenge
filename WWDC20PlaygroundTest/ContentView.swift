@@ -8,6 +8,9 @@
 
 import SwiftUI
 
+var viewWidth: CGFloat = 0
+var viewHeight: CGFloat = 0
+
 let NPCSize: CGFloat = 40
 let PlayerSize: CGFloat = 45
 
@@ -18,6 +21,10 @@ var npcCoords: [ScreenCoordinate] = []
 
 public func getDistance(x: CGFloat, y: CGFloat) -> CGFloat {
     return (x * x + y * y).squareRoot()
+}
+
+public func gameStateCheck() {
+    
 }
 
 // MARK: - Animation
@@ -34,11 +41,12 @@ struct Shake: GeometryEffect {
 }
 
 extension Animation {
-    static func ripple(index: Int) -> Animation {
-        //        CGAffineTransform(translationX: 100, y: 100)
-        Animation.spring(dampingFraction: 0.5)
-            .speed(2)
-            .delay(0 * Double(index))
+    static func playerMove() -> Animation {
+        Animation.spring(response: 0.3, dampingFraction: 0.825, blendDuration: 0)
+    }
+    
+    static func npcTransition() -> Animation {
+        Animation.easeInOut.speed(0.8)
     }
 }
 
@@ -67,8 +75,7 @@ struct NPCInternalView: View {
                 .resizable()
                 .frame(width: NPCSize, height: NPCSize)
                 .opacity(self.isDragging ? 0.6 : 1.0)
-                .transition(.opacity)
-                .animation(Animation.easeInOut.speed(0.8))
+                .animation(.npcTransition())
                 .clipShape(Circle())
             
             // warning range indicator
@@ -78,60 +85,69 @@ struct NPCInternalView: View {
                 .overlay(
                     Circle()
                         .stroke(Color.red.opacity(self.isDragging ? 0.9 : 0), lineWidth: self.isDragging ? NPCSize/2 : 0)
-                        .animation(Animation.easeInOut.speed(0.8))
+                        .animation(.npcTransition())
             )
-            
         }
-        .drawingGroup()
+            .drawingGroup() // enable off-screen Metal rendering
     }
 }
+
 struct NPCView: View {
     
     @Binding var isDragging: Bool
     
-    @State var attempts: CGFloat = 0
+    @State var lastCoord: ScreenCoordinate
     
-    @State var moving: Bool = false
-    
-    var initialCoord: ScreenCoordinate
-    
-    private let animation = Animation.easeInOut(duration: 3).repeatForever(autoreverses: true)
-    
+    //    private let continuousAnim = Animation.linear(duration: 3).repeatForever(autoreverses: true)
     
     var body: some View {
         
         NPCInternalView(isDragging: $isDragging)
-            .position(x: initialCoord.x, y: initialCoord.y)
-            .offset(x: moving ? attempts * 100 : 1, y: 0)
+            .position(x: 0, y: 0)
+            .offset(x: lastCoord.x, y: lastCoord.y)
+            .animation(Animation.linear(duration: 3))
             .onAppear {
-                withAnimation(self.animation, {
-                    self.moving.toggle()
-                    self.attempts += 1
-                })
+                self.toNewPosition()
         }
-        //        .offset(x: self.attempts * 100, y: self.attempts * 100)
-        //        .animation(.ripple(index: 1))
-        //            .gesture(
-        //                TapGesture()
-        //                    .onEnded({ value in
-        //                        self.attempts += 1
-        //                    })
-        //        )
+        .onTapGesture {
+            print(self.lastCoord)
+        }
+        
+    }
+    
+    func toNewPosition() {
+        if !isDragging {
+            let xMove: CGFloat = CGFloat.random(in: -30...30)
+            let yMove: CGFloat = CGFloat.random(in: -30...30)
+            
+            //        let newPosition = ScreenCoordinate(x: lastCoord.x + xMove, y: lastCoord.y + yMove)
+            
+            lastCoord.x += xMove
+            lastCoord.y += yMove
+            
+            
+            
+            print(lastCoord)
+        }
+        
+        DispatchQueue.main.asyncAfter(deadline: .now() + .random(in: 1.5...3.5)) {
+            self.toNewPosition()
+        }
     }
     
 }
 
 struct NPCMap: View {
+    
     @Binding var isDragging: Bool
     
     var body: some View {
         ZStack {
             ForEach(npcCoords, id: \.self) { coord in
-                NPCView(isDragging: self.$isDragging, initialCoord: coord)
+                NPCView(isDragging: self.$isDragging, lastCoord: coord)
             }
         }
-        //        .drawingGroup()
-        
+            .drawingGroup() // enable off-screen Metal rendering
     }
 }
 
@@ -175,10 +191,10 @@ struct PlayerView: View {
             Circle()
                 .frame(width: PlayerSize, height: PlayerSize)
                 .foregroundColor(Color.blue)
-                // warning animation modifier
+                // invalid move warning indication
                 .modifier(Shake(animatableData: CGFloat(attempts)))
                 // movement animation
-                .animation(Animation.spring(response: 0.3, dampingFraction: 0.825, blendDuration: 0))
+                .animation(.playerMove())
             
         }
         .offset(showPathPreview ? newPosition : playerCurrentPosition())
@@ -287,9 +303,6 @@ struct InterfaceView: View {
     }
 }
 
-var viewWidth: CGFloat = 0
-var viewHeight: CGFloat = 0
-
 // MARK: - ContentView
 struct ContentView: View {
     
@@ -298,7 +311,7 @@ struct ContentView: View {
     @State private var distance: CGFloat = 0
     @State private var isDragging: Bool = false
     
-    @State private var npcCount = 30
+    @State private var npcCount = 1
     
     @State private var initialized = false
     
@@ -345,7 +358,7 @@ struct ContentView: View {
     
     private func generateNPCCoords(viewWidth: CGFloat, viewHeight: CGFloat) -> [ScreenCoordinate] {
         var resultCoords: [ScreenCoordinate] = []
-        for _ in 0...npcCount {
+        for _ in 1...npcCount {
             
             var localSlotX = Int((viewWidth / (NPCSize * 1.5)) - 1)
             var randX = CGFloat(Int.random(in: 0...localSlotX) * Int((NPCSize * 1.5)) + Int((NPCSize * 1.5)) / 2)
