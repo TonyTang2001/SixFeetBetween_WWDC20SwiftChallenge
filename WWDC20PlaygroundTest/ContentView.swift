@@ -11,20 +11,71 @@ import SwiftUI
 var viewWidth: CGFloat = 0
 var viewHeight: CGFloat = 0
 
-let NPCSize: CGFloat = 40
-let PlayerSize: CGFloat = 45
+let npcSize: CGFloat = 30
+let npcWarningRangeSize: CGFloat = npcSize * 1.5
+let playerSize: CGFloat = 35
+
+let safetyDistance: CGFloat = (npcWarningRangeSize + playerSize)/2
 
 var currentPosition: CGSize = .zero
 var newPosition: CGSize = .zero
 
 var npcCoords: [ScreenCoordinate] = []
 
-public func getDistance(x: CGFloat, y: CGFloat) -> CGFloat {
+var playerWon: Bool = false
+
+public func getLength(x: CGFloat, y: CGFloat) -> CGFloat {
     return (x * x + y * y).squareRoot()
 }
 
-public func gameStateCheck() {
+public func getDistance(_ point1: ScreenCoordinate, _ point2: ScreenCoordinate) -> CGFloat {
+    let p1X = point1.x
+    let p1Y = point1.y
+    let p2X = point2.x
+    let p2Y = point2.y
     
+    let xDiff = p1X - p2X
+    let yDiff = p1Y - p2Y
+    
+    let ptDistance = (xDiff * xDiff + yDiff * yDiff).squareRoot()
+    
+    return ptDistance
+}
+
+public func gameStateCheck() -> (ended: Bool, succeeded: Bool) {
+    var isEnded = false
+    var isSucceeded = false
+    let playerPosition = ScreenCoordinate(x: currentPosition.width + viewWidth/2 , y: currentPosition.height + viewHeight - playerSize/2)
+    print(playerPosition)
+    
+    if playerPosition.y < 0 {
+        isEnded = true
+        isSucceeded = true
+        return (isEnded, isSucceeded)
+    }
+    
+    npcCoords.forEach { npcCoord in
+        let distance = getDistance(npcCoord, playerPosition)
+//        print(distance)
+        if distance < safetyDistance {
+            isEnded = true
+            isSucceeded = false
+        }
+    }
+    
+    return (isEnded, isSucceeded)
+}
+
+public func outOfView(coord: ScreenCoordinate) -> Bool {
+    let coordLeftX = coord.x - 20
+    let coordRightX = coord.x + 20
+    let coordTopY = coord.y - 20
+    let coordBtmY = coord.y + 20
+    if coordLeftX < 0 || coordRightX > viewWidth || coordTopY < 0 || coordBtmY > viewHeight {
+        return true
+    } else {
+        return false
+    }
 }
 
 // MARK: - Animation
@@ -46,7 +97,7 @@ extension Animation {
     }
     
     static func npcTransition() -> Animation {
-        Animation.easeInOut.speed(0.8)
+        Animation.easeInOut.speed(0.6)
     }
 }
 
@@ -73,18 +124,18 @@ struct NPCInternalView: View {
         ZStack {
             Image(systemName: "person.circle.fill")
                 .resizable()
-                .frame(width: NPCSize, height: NPCSize)
+                .frame(width: npcSize, height: npcSize)
                 .opacity(self.isDragging ? 0.6 : 1.0)
                 .animation(.npcTransition())
                 .clipShape(Circle())
             
             // warning range indicator
             Circle()
-                .frame(width: NPCSize * 1.5, height: NPCSize * 1.5)
+                .frame(width: npcWarningRangeSize, height: npcWarningRangeSize)
                 .opacity(self.isDragging ? 0 : 0)
                 .overlay(
                     Circle()
-                        .stroke(Color.red.opacity(self.isDragging ? 0.9 : 0), lineWidth: self.isDragging ? NPCSize/2 : 0)
+                        .stroke(Color.red.opacity(self.isDragging ? 0.9 : 0), lineWidth: self.isDragging ? npcSize/2 : 0)
                         .animation(.npcTransition())
             )
         }
@@ -105,7 +156,7 @@ struct NPCView: View {
         NPCInternalView(isDragging: $isDragging)
             .position(x: 0, y: 0)
             .offset(x: lastCoord.x, y: lastCoord.y)
-            .animation(Animation.linear(duration: 3))
+            .animation(Animation.linear(duration: 0.5))
             .onAppear {
                 self.toNewPosition()
         }
@@ -117,20 +168,22 @@ struct NPCView: View {
     
     func toNewPosition() {
         if !isDragging {
-            let xMove: CGFloat = CGFloat.random(in: -30...30)
-            let yMove: CGFloat = CGFloat.random(in: -30...30)
+            let const: CGFloat = 8
+            var xMove = CGFloat.random(in: -const...const)
+            var yMove = CGFloat.random(in: -const...const)
             
-            //        let newPosition = ScreenCoordinate(x: lastCoord.x + xMove, y: lastCoord.y + yMove)
+            while outOfView(coord: ScreenCoordinate(x: lastCoord.x + xMove, y: lastCoord.y + yMove)) {
+                xMove = CGFloat.random(in: -const...const)
+                yMove = CGFloat.random(in: -const...const)
+            }
             
             lastCoord.x += xMove
             lastCoord.y += yMove
             
-            
-            
-            print(lastCoord)
+//            print(lastCoord)
         }
         
-        DispatchQueue.main.asyncAfter(deadline: .now() + .random(in: 1.5...3.5)) {
+        DispatchQueue.main.asyncAfter(deadline: .now() + .random(in: 0.5...0.5)) {
             self.toNewPosition()
         }
     }
@@ -159,7 +212,7 @@ struct MovePathIndicatorView: View {
     var body: some View {
         Image(systemName: "xmark.circle")
             .resizable()
-            .frame(width: PlayerSize, height: PlayerSize)
+            .frame(width: playerSize, height: playerSize)
             .offset(destCoord)
             .foregroundColor(Color.blue.opacity(showPathPreview ? 1 : 0))
             .font(.system(size: 25, weight: .bold))
@@ -172,8 +225,9 @@ struct PlayerView: View {
     @Binding var inputX: CGFloat
     @Binding var inputY: CGFloat
     @Binding var showPathPreview: Bool
+    @Binding var gameEnded: Bool
     
-    @State var attempts: Int = 0
+    @State var invalidMoveCount: Int = 0
     
     var body: some View {
         
@@ -182,17 +236,17 @@ struct PlayerView: View {
             // path preview
             Image(systemName: "xmark.circle")
                 .resizable()
-                .frame(width: PlayerSize, height: PlayerSize)
+                .frame(width: playerSize, height: playerSize)
                 .offset(destinationPreviewCalculation(inputX: inputX, inputY: inputY))
                 .foregroundColor(Color.red.opacity(showPathPreview ? 1 : 0))
                 .font(.system(size: 25, weight: .bold))
             
             // player icon
             Circle()
-                .frame(width: PlayerSize, height: PlayerSize)
+                .frame(width: playerSize, height: playerSize)
                 .foregroundColor(Color.blue)
                 // invalid move warning indication
-                .modifier(Shake(animatableData: CGFloat(attempts)))
+                .modifier(Shake(animatableData: CGFloat(invalidMoveCount)))
                 // movement animation
                 .animation(.playerMove())
             
@@ -207,14 +261,15 @@ struct PlayerView: View {
         
         currentPosition = CGSize(width: jump.width + newPosition.width, height: jump.height + newPosition.height)
         
-        if currentPosition.width + viewWidth/2 < 0 {
+        
+        if currentPosition.width + viewWidth/2 < 0 || currentPosition.width > viewWidth/2 {
             print("negative")
             
             // have to use async here to prevent updating state variable during UI rerendering
             DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
                 // trigger shaking animation to indicate invalid move warning
                 withAnimation(.default) {
-                    self.attempts += 1
+                    self.invalidMoveCount += 1
                     self.showPathPreview = true
                 }
             }
@@ -223,11 +278,24 @@ struct PlayerView: View {
             newPosition = currentPosition
         }
         
-        let gameStatus = gameEndingJudgment()
+        let gameStatus = gameStateCheck()
         if gameStatus.ended {
-            //
+            // game ended
+            DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
+                self.gameEnded = true
+            }
+            
+            if gameStatus.succeeded {
+                // player won
+                print("player won")
+                playerWon = true
+            } else {
+                // player failed
+                print("player lost")
+                playerWon = false
+            }
         } else {
-            //
+            // game still gping on
         }
         
         return newPosition
@@ -282,6 +350,8 @@ struct InterfaceView: View {
     @Binding var yDistance: CGFloat
     @Binding var isDragging: Bool
     
+    @Binding var gameEnded: Bool
+    
     var body: some View {
         
         VStack {
@@ -295,8 +365,10 @@ struct InterfaceView: View {
             Spacer()
             
             NPCMap(isDragging: $isDragging)
+                
+            PlayerView(inputX: self.$xDistance, inputY: self.$yDistance, showPathPreview: self.$isDragging, gameEnded: $gameEnded)
             
-            PlayerView(inputX: $xDistance, inputY: $yDistance, showPathPreview: $isDragging)
+            
         }
         .background(Color.white.opacity(0.00001))
         
@@ -311,9 +383,11 @@ struct ContentView: View {
     @State private var distance: CGFloat = 0
     @State private var isDragging: Bool = false
     
-    @State private var npcCount = 1
+    @State private var npcCount = 20
     
     @State private var initialized = false
+    
+    @State private var gameEnded = false
     
     var body: some View {
         ZStack {
@@ -333,13 +407,13 @@ struct ContentView: View {
                     }
                     
                 } else {
-                    InterfaceView(distance: $distance, xDistance: $xDistance, yDistance: $yDistance, isDragging: $isDragging)
+                    InterfaceView(distance: $distance, xDistance: $xDistance, yDistance: $yDistance, isDragging: $isDragging, gameEnded: $gameEnded)
                         .gesture(DragGesture()
                             .onChanged({ value in
                                 self.isDragging = true
                                 self.xDistance = value.translation.width
                                 self.yDistance = value.translation.height
-                                self.distance = getDistance(x: self.xDistance, y: self.yDistance)
+                                self.distance = getLength(x: self.xDistance, y: self.yDistance)
                                 
                             })
                             .onEnded({ (value) in
@@ -348,9 +422,16 @@ struct ContentView: View {
                     )
                 }
                 
-            }
+                }.edgesIgnoringSafeArea(.bottom)
+                .blur(radius: gameEnded ? 26 : 0)
             
             GroundMapView()
+            
+            if gameEnded && playerWon {
+                GameSuccessView()
+            } else if gameEnded && !playerWon {
+                GameFailureView()
+            }
             
         }
         
@@ -360,22 +441,22 @@ struct ContentView: View {
         var resultCoords: [ScreenCoordinate] = []
         for _ in 1...npcCount {
             
-            var localSlotX = Int((viewWidth / (NPCSize * 1.5)) - 1)
-            var randX = CGFloat(Int.random(in: 0...localSlotX) * Int((NPCSize * 1.5)) + Int((NPCSize * 1.5)) / 2)
+            var localSlotX = Int((viewWidth / (npcSize * 1.5)) - 1)
+            var randX = CGFloat(Int.random(in: 0...localSlotX) * Int((npcSize * 1.5)) + Int((npcSize * 1.5)) / 2)
             resultCoords.forEach { coord in
                 if coord.x == randX {
-                    localSlotX = Int((viewWidth / (NPCSize * 1.5)) - 1)
-                    randX = CGFloat(Int.random(in: 0...localSlotX) * Int((NPCSize * 1.5)) + Int((NPCSize * 1.5)) / 2)
+                    localSlotX = Int((viewWidth / (npcSize * 1.5)) - 1)
+                    randX = CGFloat(Int.random(in: 0...localSlotX) * Int((npcSize * 1.5)) + Int((npcSize * 1.5)) / 2)
                 }
             }
             
-            var localSlotY = Int((viewHeight / (NPCSize * 1.5)) - 3)
-            var randY = CGFloat(Int.random(in: 0...localSlotY) * Int((NPCSize * 1.5)) + Int((NPCSize * 1.5)) / 2)
+            var localSlotY = Int((viewHeight / (npcSize * 1.5)) - 3)
+            var randY = CGFloat(Int.random(in: 0...localSlotY) * Int((npcSize * 1.5)) + Int((npcSize * 1.5)) / 2)
             
             resultCoords.forEach { coord in
                 if coord.y == randY {
-                    localSlotY = Int((viewHeight / (NPCSize * 1.5)) - 3)
-                    randY = CGFloat(Int.random(in: 0...localSlotY) * Int((NPCSize * 1.5)) + Int((NPCSize * 1.5)) / 2)
+                    localSlotY = Int((viewHeight / (npcSize * 1.5)) - 3)
+                    randY = CGFloat(Int.random(in: 0...localSlotY) * Int((npcSize * 1.5)) + Int((npcSize * 1.5)) / 2)
                 }
             }
             
