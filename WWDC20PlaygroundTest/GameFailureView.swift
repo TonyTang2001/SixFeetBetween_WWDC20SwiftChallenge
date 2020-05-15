@@ -50,23 +50,69 @@ struct FaliureThumbNailView: View {
 }
 
 struct GameFailureView: View {
-    let failureSentences: [String] = ["Good Work, but Not Enough",
+    
+    @State var appear = false
+    @State var userDrag = CGSize.zero
+    
+    let textOption = Int.random(in: 0..<6)
+    let failureSentences: [String] = ["Good Work, \nbut Not Enough.",
                                       "Still a Way to Go",
-                                      "Keep up with It, You Got This",
-                                      "Just...a bit More",
-                                      "There's Always another chance"]
+                                      "Keep up with It, \nYou Got This!",
+                                      "Just... a bit More.",
+                                      "Better Luck Next Time!",
+                                      "Oops, didn't see that coming..."]
     
     var body: some View {
         VStack {
+            Spacer()
+            VStack {
+                Spacer()
+                FailureSignView()
+                
+                Spacer()
+                FaliureThumbNailView()
+                
+                Spacer()
+                Text(failureSentences[textOption])
+                    .fontWeight(.bold)
+                    .font(.system(.largeTitle, design: .rounded))
+                    .multilineTextAlignment(.center)
+                
+                Spacer()
+            }
+            .frame(width: 420, height: 330)
+            .background(Color.white)
+            .clipShape(RoundedRectangle(cornerRadius: 24, style: .continuous))
+            .shadow(color: Color.black.opacity(0.3), radius: 22, x: 16, y: 16)
+            .offset(x: 0, y: self.appear ? 0 : 16)
+            .rotation3DEffect(Angle(degrees: Double(0.01 * getLength(x: userDrag.width, y: userDrag.height))), axis: (x: userDrag.width * 0.1, y: userDrag.height * 0.1, z: 0.0))
+            .animation(.easeInOut)
             
-            FailureSignView()
+            Spacer()
             
-            FaliureThumbNailView()
+            Text("To restart the game, \ntap on Playground Start/Stop Button.")
+                .fontWeight(.semibold)
+                .font(.system(.footnote, design: .rounded))
+            .multilineTextAlignment(.center)
             
-            Text(failureSentences.randomElement()!)
-                .fontWeight(.bold)
-                .font(.system(.largeTitle, design: .rounded))
+            Spacer()
         }
+        .opacity(self.appear ? 1 : 0)
+        .onAppear {
+            withAnimation {
+                self.appear = true
+            }
+        }
+        .gesture(
+            DragGesture().onChanged { value in
+                self.userDrag = value.translation
+            }
+            .onEnded { value in
+                self.userDrag = .zero
+            }
+        )
+        
+
     
         
     }

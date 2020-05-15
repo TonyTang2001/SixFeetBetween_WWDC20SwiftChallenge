@@ -77,7 +77,12 @@ struct SuccessRatingView: View {
 }
 
 struct GameSuccessView: View {
+    
+    @State var appear = false
+    @State var userDrag = CGSize.zero
+    
     let finalScore = 983
+    let textOption = Int.random(in: 0..<5)
     let successSentences: [String] = ["You are a Hero!",
                                       "Lengendary!",
                                       "Congratulations!",
@@ -86,14 +91,53 @@ struct GameSuccessView: View {
     
     var body: some View {
         VStack {
-            SuccessSignView()
+            Spacer()
+            VStack {
+                Spacer()
+                SuccessSignView()
+                
+                Spacer()
+                SuccessRatingView()
+                
+                Spacer()
+                Text(successSentences[textOption])
+                    .fontWeight(.bold)
+                    .font(.system(.largeTitle, design: .rounded))
+                    .multilineTextAlignment(.center)
+                
+                Spacer()
+            }
+            .frame(width: 420, height: 330)
+            .background(Color.white)
+            .clipShape(RoundedRectangle(cornerRadius: 24, style: .continuous))
+            .shadow(color: Color.black.opacity(0.3), radius: 22, x: 16, y: 16)
+            .offset(x: 0, y: self.appear ? 0 : 16)
+            .rotation3DEffect(Angle(degrees: Double(0.01 * getLength(x: userDrag.width, y: userDrag.height))), axis: (x: userDrag.width * 0.1, y: userDrag.height * 0.1, z: 0.0))
+            .animation(.easeInOut)
             
-            SuccessRatingView()
+            Spacer()
             
-            Text(successSentences.randomElement()!)
-                .fontWeight(.bold)
-                .font(.system(.largeTitle, design: .rounded))
+            Text("To restart the game, \ntap on Playground Start/Stop Button.")
+                .fontWeight(.semibold)
+                .font(.system(.footnote, design: .rounded))
+                .multilineTextAlignment(.center)
+            
+            Spacer()
         }
+        .opacity(self.appear ? 1 : 0)
+        .onAppear {
+            withAnimation {
+                self.appear = true
+            }
+        }
+        .gesture(
+            DragGesture().onChanged { value in
+                self.userDrag = value.translation
+            }
+            .onEnded { value in
+                self.userDrag = .zero
+            }
+        )
         
     }
 }

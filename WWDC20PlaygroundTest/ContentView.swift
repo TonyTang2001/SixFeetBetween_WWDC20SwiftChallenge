@@ -21,6 +21,7 @@ var currentPosition: CGSize = .zero
 var newPosition: CGSize = .zero
 
 var npcCoords: [ScreenCoordinate] = []
+var npcHistoryCoords: [ScreenCoordinate] = []
 
 var playerWon: Bool = false
 
@@ -184,6 +185,7 @@ struct NPCView: View {
         }
         
         DispatchQueue.main.asyncAfter(deadline: .now() + .random(in: 0.5...0.5)) {
+            
             self.toNewPosition()
         }
     }
@@ -422,13 +424,17 @@ struct ContentView: View {
                     )
                 }
                 
-                }.edgesIgnoringSafeArea(.bottom)
+                }
+                .edgesIgnoringSafeArea(.bottom)
                 .blur(radius: gameEnded ? 26 : 0)
+//                .animation(.easeInOut)
             
             GroundMapView()
             
             if gameEnded && playerWon {
                 GameSuccessView()
+                    .offset(x: 0, y: gameEnded ? 0 : 1000)
+                
             } else if gameEnded && !playerWon {
                 GameFailureView()
             }
