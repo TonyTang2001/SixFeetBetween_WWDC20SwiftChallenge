@@ -16,6 +16,11 @@
 		EA26186F2462A7EA00ADFE5C /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = EA26186D2462A7EA00ADFE5C /* LaunchScreen.storyboard */; };
 		EA2CE767246CB775004B8A34 /* GameSuccessView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA2CE766246CB775004B8A34 /* GameSuccessView.swift */; };
 		EA2CE769246CB77F004B8A34 /* GameFailureView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA2CE768246CB77F004B8A34 /* GameFailureView.swift */; };
+		EA7AF2C6246F9F360004BDC4 /* Calculation.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA7AF2C5246F9F360004BDC4 /* Calculation.swift */; };
+		EA7AF2C8246F9FFD0004BDC4 /* GameLogistics.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA7AF2C7246F9FFD0004BDC4 /* GameLogistics.swift */; };
+		EA7AF2CA246FA0180004BDC4 /* AnimationPresets.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA7AF2C9246FA0180004BDC4 /* AnimationPresets.swift */; };
+		EA7AF2CC246FA1530004BDC4 /* NPCUI.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA7AF2CB246FA1530004BDC4 /* NPCUI.swift */; };
+		EA7AF2CE246FA1A90004BDC4 /* PlayerUI.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA7AF2CD246FA1A90004BDC4 /* PlayerUI.swift */; };
 		EACB7CF2246A4FEA00DDBB1F /* SwiftUIView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EACB7CF1246A4FEA00DDBB1F /* SwiftUIView.swift */; };
 		EAFAA58124653BB00006CAFF /* DataModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = EAFAA58024653BB00006CAFF /* DataModel.swift */; };
 /* End PBXBuildFile section */
@@ -32,6 +37,11 @@
 		EA2618702462A7EA00ADFE5C /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		EA2CE766246CB775004B8A34 /* GameSuccessView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameSuccessView.swift; sourceTree = "<group>"; };
 		EA2CE768246CB77F004B8A34 /* GameFailureView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameFailureView.swift; sourceTree = "<group>"; };
+		EA7AF2C5246F9F360004BDC4 /* Calculation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Calculation.swift; sourceTree = "<group>"; };
+		EA7AF2C7246F9FFD0004BDC4 /* GameLogistics.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameLogistics.swift; sourceTree = "<group>"; };
+		EA7AF2C9246FA0180004BDC4 /* AnimationPresets.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnimationPresets.swift; sourceTree = "<group>"; };
+		EA7AF2CB246FA1530004BDC4 /* NPCUI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NPCUI.swift; sourceTree = "<group>"; };
+		EA7AF2CD246FA1A90004BDC4 /* PlayerUI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayerUI.swift; sourceTree = "<group>"; };
 		EACB7CF1246A4FEA00DDBB1F /* SwiftUIView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwiftUIView.swift; sourceTree = "<group>"; };
 		EAFAA58024653BB00006CAFF /* DataModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataModel.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -69,6 +79,11 @@
 				EA26185F2462A7E300ADFE5C /* AppDelegate.swift */,
 				EA2618612462A7E300ADFE5C /* SceneDelegate.swift */,
 				EA2618662462A7E300ADFE5C /* ContentView.swift */,
+				EA7AF2C5246F9F360004BDC4 /* Calculation.swift */,
+				EA7AF2CB246FA1530004BDC4 /* NPCUI.swift */,
+				EA7AF2C7246F9FFD0004BDC4 /* GameLogistics.swift */,
+				EA7AF2CD246FA1A90004BDC4 /* PlayerUI.swift */,
+				EA7AF2C9246FA0180004BDC4 /* AnimationPresets.swift */,
 				EA2CE766246CB775004B8A34 /* GameSuccessView.swift */,
 				EA2CE768246CB77F004B8A34 /* GameFailureView.swift */,
 				EACB7CF1246A4FEA00DDBB1F /* SwiftUIView.swift */,
@@ -161,11 +176,16 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				EA7AF2CA246FA0180004BDC4 /* AnimationPresets.swift in Sources */,
 				EAFAA58124653BB00006CAFF /* DataModel.swift in Sources */,
+				EA7AF2C8246F9FFD0004BDC4 /* GameLogistics.swift in Sources */,
+				EA7AF2C6246F9F360004BDC4 /* Calculation.swift in Sources */,
 				EA2618602462A7E300ADFE5C /* AppDelegate.swift in Sources */,
+				EA7AF2CC246FA1530004BDC4 /* NPCUI.swift in Sources */,
 				EA2CE767246CB775004B8A34 /* GameSuccessView.swift in Sources */,
 				EACB7CF2246A4FEA00DDBB1F /* SwiftUIView.swift in Sources */,
 				EA2618652462A7E300ADFE5C /* WWDC20PlaygroundTest.xcdatamodeld in Sources */,
+				EA7AF2CE246FA1A90004BDC4 /* PlayerUI.swift in Sources */,
 				EA2CE769246CB77F004B8A34 /* GameFailureView.swift in Sources */,
 				EA2618672462A7E300ADFE5C /* ContentView.swift in Sources */,
 				EA2618622462A7E300ADFE5C /* SceneDelegate.swift in Sources */,

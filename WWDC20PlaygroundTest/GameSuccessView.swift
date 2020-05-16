@@ -15,7 +15,7 @@ struct SuccessSignView: View {
                 .resizable()
                 .frame(width: 30, height: 30)
             
-            Text("Score: 999")
+            Text("You Won")
                 .fontWeight(.semibold)
                 .font(.system(.title, design: .rounded))
         }
@@ -76,10 +76,12 @@ struct SuccessRatingView: View {
     }
 }
 
-struct GameSuccessView: View {
+public struct GameSuccessView: View {
     
     @State var appear = false
     @State var userDrag = CGSize.zero
+    
+    public init() {}
     
     let finalScore = 983
     let textOption = Int.random(in: 0..<5)
@@ -89,7 +91,7 @@ struct GameSuccessView: View {
                                       "Good Job!",
                                       "Play of the Game!"]
     
-    var body: some View {
+    public var body: some View {
         VStack {
             Spacer()
             VStack {
@@ -108,7 +110,7 @@ struct GameSuccessView: View {
                 Spacer()
             }
             .frame(width: 420, height: 330)
-            .background(Color.white)
+            .background(Color(UIColor.systemBackground))
             .clipShape(RoundedRectangle(cornerRadius: 24, style: .continuous))
             .shadow(color: Color.black.opacity(0.3), radius: 22, x: 16, y: 16)
             .offset(x: 0, y: self.appear ? 0 : 16)
@@ -147,3 +149,4 @@ struct GameSuccessView_Previews: PreviewProvider {
         GameSuccessView()
     }
 }
+

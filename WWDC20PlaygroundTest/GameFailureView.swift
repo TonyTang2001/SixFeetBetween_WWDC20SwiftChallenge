@@ -15,7 +15,7 @@ struct FailureSignView: View {
                 .resizable()
                 .frame(width: 30, height: 30)
             
-            Text("Failed")
+            Text("You Lost")
                 .fontWeight(.semibold)
                 .font(.system(.title, design: .rounded))
         }
@@ -31,7 +31,7 @@ struct FaliureThumbNailView: View {
                 .frame(width: 80, height: 14)
                 .foregroundColor(Color.red)
                 .rotationEffect(self.animate ? Angle(degrees: 45) : Angle(degrees: 0))
-                
+            
             
             RoundedRectangle(cornerRadius: 14, style: .continuous)
                 .frame(width: 80, height: 14)
@@ -49,10 +49,12 @@ struct FaliureThumbNailView: View {
     }
 }
 
-struct GameFailureView: View {
+public struct GameFailureView: View {
     
     @State var appear = false
     @State var userDrag = CGSize.zero
+    
+    public init() {}
     
     let textOption = Int.random(in: 0..<6)
     let failureSentences: [String] = ["Good Work, \nbut Not Enough.",
@@ -62,7 +64,7 @@ struct GameFailureView: View {
                                       "Better Luck Next Time!",
                                       "Oops, didn't see that coming..."]
     
-    var body: some View {
+    public var body: some View {
         VStack {
             Spacer()
             VStack {
@@ -81,7 +83,7 @@ struct GameFailureView: View {
                 Spacer()
             }
             .frame(width: 420, height: 330)
-            .background(Color.white)
+            .background(Color(UIColor.systemBackground))
             .clipShape(RoundedRectangle(cornerRadius: 24, style: .continuous))
             .shadow(color: Color.black.opacity(0.3), radius: 22, x: 16, y: 16)
             .offset(x: 0, y: self.appear ? 0 : 16)
@@ -93,7 +95,7 @@ struct GameFailureView: View {
             Text("To restart the game, \ntap on Playground Start/Stop Button.")
                 .fontWeight(.semibold)
                 .font(.system(.footnote, design: .rounded))
-            .multilineTextAlignment(.center)
+                .multilineTextAlignment(.center)
             
             Spacer()
         }
@@ -112,8 +114,8 @@ struct GameFailureView: View {
             }
         )
         
-
-    
+        
+        
         
     }
 }
@@ -123,3 +125,4 @@ struct GameFailureView_Previews: PreviewProvider {
         GameFailureView()
     }
 }
+
