@@ -14,6 +14,22 @@
 		EA2618692462A7EA00ADFE5C /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = EA2618682462A7EA00ADFE5C /* Assets.xcassets */; };
 		EA26186C2462A7EA00ADFE5C /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = EA26186B2462A7EA00ADFE5C /* Preview Assets.xcassets */; };
 		EA26186F2462A7EA00ADFE5C /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = EA26186D2462A7EA00ADFE5C /* LaunchScreen.storyboard */; };
+		EA29397D246FC55A00B8A898 /* BackgroundView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA29397C246FC55A00B8A898 /* BackgroundView.swift */; };
+		EA293981246FCBDA00B8A898 /* jump.wav in Resources */ = {isa = PBXBuildFile; fileRef = EA29397E246FCBDA00B8A898 /* jump.wav */; };
+		EA293982246FCBDA00B8A898 /* error2.wav in Resources */ = {isa = PBXBuildFile; fileRef = EA29397F246FCBDA00B8A898 /* error2.wav */; };
+		EA293983246FCBDA00B8A898 /* error1.wav in Resources */ = {isa = PBXBuildFile; fileRef = EA293980246FCBDA00B8A898 /* error1.wav */; };
+		EA293985246FCC4900B8A898 /* MediaModule.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA293984246FCC4900B8A898 /* MediaModule.swift */; };
+		EA29398E246FE60000B8A898 /* success2.wav in Resources */ = {isa = PBXBuildFile; fileRef = EA293986246FE60000B8A898 /* success2.wav */; };
+		EA29398F246FE60000B8A898 /* success4.wav in Resources */ = {isa = PBXBuildFile; fileRef = EA293987246FE60000B8A898 /* success4.wav */; };
+		EA293990246FE60000B8A898 /* coin3.wav in Resources */ = {isa = PBXBuildFile; fileRef = EA293988246FE60000B8A898 /* coin3.wav */; };
+		EA293991246FE60000B8A898 /* coin1.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = EA293989246FE60000B8A898 /* coin1.mp3 */; };
+		EA293992246FE60000B8A898 /* success3.wav in Resources */ = {isa = PBXBuildFile; fileRef = EA29398A246FE60000B8A898 /* success3.wav */; };
+		EA293993246FE60000B8A898 /* success1.wav in Resources */ = {isa = PBXBuildFile; fileRef = EA29398B246FE60000B8A898 /* success1.wav */; };
+		EA293994246FE60000B8A898 /* coin4.wav in Resources */ = {isa = PBXBuildFile; fileRef = EA29398C246FE60000B8A898 /* coin4.wav */; };
+		EA293995246FE60000B8A898 /* coin2.wav in Resources */ = {isa = PBXBuildFile; fileRef = EA29398D246FE60000B8A898 /* coin2.wav */; };
+		EA293999246FE92800B8A898 /* failure3.wav in Resources */ = {isa = PBXBuildFile; fileRef = EA293996246FE92800B8A898 /* failure3.wav */; };
+		EA29399A246FE92800B8A898 /* failure1.wav in Resources */ = {isa = PBXBuildFile; fileRef = EA293997246FE92800B8A898 /* failure1.wav */; };
+		EA29399B246FE92800B8A898 /* failure2.wav in Resources */ = {isa = PBXBuildFile; fileRef = EA293998246FE92800B8A898 /* failure2.wav */; };
 		EA2CE767246CB775004B8A34 /* GameSuccessView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA2CE766246CB775004B8A34 /* GameSuccessView.swift */; };
 		EA2CE769246CB77F004B8A34 /* GameFailureView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA2CE768246CB77F004B8A34 /* GameFailureView.swift */; };
 		EA7AF2C6246F9F360004BDC4 /* Calculation.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA7AF2C5246F9F360004BDC4 /* Calculation.swift */; };
@@ -21,7 +37,6 @@
 		EA7AF2CA246FA0180004BDC4 /* AnimationPresets.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA7AF2C9246FA0180004BDC4 /* AnimationPresets.swift */; };
 		EA7AF2CC246FA1530004BDC4 /* NPCUI.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA7AF2CB246FA1530004BDC4 /* NPCUI.swift */; };
 		EA7AF2CE246FA1A90004BDC4 /* PlayerUI.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA7AF2CD246FA1A90004BDC4 /* PlayerUI.swift */; };
-		EACB7CF2246A4FEA00DDBB1F /* SwiftUIView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EACB7CF1246A4FEA00DDBB1F /* SwiftUIView.swift */; };
 		EAFAA58124653BB00006CAFF /* DataModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = EAFAA58024653BB00006CAFF /* DataModel.swift */; };
 /* End PBXBuildFile section */
 
@@ -35,6 +50,22 @@
 		EA26186B2462A7EA00ADFE5C /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		EA26186E2462A7EA00ADFE5C /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		EA2618702462A7EA00ADFE5C /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		EA29397C246FC55A00B8A898 /* BackgroundView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BackgroundView.swift; sourceTree = "<group>"; };
+		EA29397E246FCBDA00B8A898 /* jump.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = jump.wav; sourceTree = "<group>"; };
+		EA29397F246FCBDA00B8A898 /* error2.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = error2.wav; sourceTree = "<group>"; };
+		EA293980246FCBDA00B8A898 /* error1.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = error1.wav; sourceTree = "<group>"; };
+		EA293984246FCC4900B8A898 /* MediaModule.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MediaModule.swift; sourceTree = "<group>"; };
+		EA293986246FE60000B8A898 /* success2.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = success2.wav; sourceTree = "<group>"; };
+		EA293987246FE60000B8A898 /* success4.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = success4.wav; sourceTree = "<group>"; };
+		EA293988246FE60000B8A898 /* coin3.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = coin3.wav; sourceTree = "<group>"; };
+		EA293989246FE60000B8A898 /* coin1.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = coin1.mp3; sourceTree = "<group>"; };
+		EA29398A246FE60000B8A898 /* success3.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = success3.wav; sourceTree = "<group>"; };
+		EA29398B246FE60000B8A898 /* success1.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = success1.wav; sourceTree = "<group>"; };
+		EA29398C246FE60000B8A898 /* coin4.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = coin4.wav; sourceTree = "<group>"; };
+		EA29398D246FE60000B8A898 /* coin2.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = coin2.wav; sourceTree = "<group>"; };
+		EA293996246FE92800B8A898 /* failure3.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = failure3.wav; sourceTree = "<group>"; };
+		EA293997246FE92800B8A898 /* failure1.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = failure1.wav; sourceTree = "<group>"; };
+		EA293998246FE92800B8A898 /* failure2.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = failure2.wav; sourceTree = "<group>"; };
 		EA2CE766246CB775004B8A34 /* GameSuccessView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameSuccessView.swift; sourceTree = "<group>"; };
 		EA2CE768246CB77F004B8A34 /* GameFailureView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameFailureView.swift; sourceTree = "<group>"; };
 		EA7AF2C5246F9F360004BDC4 /* Calculation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Calculation.swift; sourceTree = "<group>"; };
@@ -42,7 +73,6 @@
 		EA7AF2C9246FA0180004BDC4 /* AnimationPresets.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnimationPresets.swift; sourceTree = "<group>"; };
 		EA7AF2CB246FA1530004BDC4 /* NPCUI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NPCUI.swift; sourceTree = "<group>"; };
 		EA7AF2CD246FA1A90004BDC4 /* PlayerUI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayerUI.swift; sourceTree = "<group>"; };
-		EACB7CF1246A4FEA00DDBB1F /* SwiftUIView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwiftUIView.swift; sourceTree = "<group>"; };
 		EAFAA58024653BB00006CAFF /* DataModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataModel.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -79,15 +109,30 @@
 				EA26185F2462A7E300ADFE5C /* AppDelegate.swift */,
 				EA2618612462A7E300ADFE5C /* SceneDelegate.swift */,
 				EA2618662462A7E300ADFE5C /* ContentView.swift */,
+				EA29397C246FC55A00B8A898 /* BackgroundView.swift */,
 				EA7AF2C5246F9F360004BDC4 /* Calculation.swift */,
 				EA7AF2CB246FA1530004BDC4 /* NPCUI.swift */,
 				EA7AF2C7246F9FFD0004BDC4 /* GameLogistics.swift */,
 				EA7AF2CD246FA1A90004BDC4 /* PlayerUI.swift */,
+				EA293984246FCC4900B8A898 /* MediaModule.swift */,
 				EA7AF2C9246FA0180004BDC4 /* AnimationPresets.swift */,
 				EA2CE766246CB775004B8A34 /* GameSuccessView.swift */,
 				EA2CE768246CB77F004B8A34 /* GameFailureView.swift */,
-				EACB7CF1246A4FEA00DDBB1F /* SwiftUIView.swift */,
 				EAFAA58024653BB00006CAFF /* DataModel.swift */,
+				EA293980246FCBDA00B8A898 /* error1.wav */,
+				EA29397F246FCBDA00B8A898 /* error2.wav */,
+				EA29397E246FCBDA00B8A898 /* jump.wav */,
+				EA293989246FE60000B8A898 /* coin1.mp3 */,
+				EA29398D246FE60000B8A898 /* coin2.wav */,
+				EA293988246FE60000B8A898 /* coin3.wav */,
+				EA29398C246FE60000B8A898 /* coin4.wav */,
+				EA293997246FE92800B8A898 /* failure1.wav */,
+				EA293998246FE92800B8A898 /* failure2.wav */,
+				EA293996246FE92800B8A898 /* failure3.wav */,
+				EA29398B246FE60000B8A898 /* success1.wav */,
+				EA293986246FE60000B8A898 /* success2.wav */,
+				EA29398A246FE60000B8A898 /* success3.wav */,
+				EA293987246FE60000B8A898 /* success4.wav */,
 				EA2618682462A7EA00ADFE5C /* Assets.xcassets */,
 				EA26186D2462A7EA00ADFE5C /* LaunchScreen.storyboard */,
 				EA2618702462A7EA00ADFE5C /* Info.plist */,
@@ -163,9 +208,23 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				EA293994246FE60000B8A898 /* coin4.wav in Resources */,
+				EA29399A246FE92800B8A898 /* failure1.wav in Resources */,
+				EA293990246FE60000B8A898 /* coin3.wav in Resources */,
+				EA293992246FE60000B8A898 /* success3.wav in Resources */,
+				EA293982246FCBDA00B8A898 /* error2.wav in Resources */,
+				EA293983246FCBDA00B8A898 /* error1.wav in Resources */,
+				EA29398E246FE60000B8A898 /* success2.wav in Resources */,
+				EA293995246FE60000B8A898 /* coin2.wav in Resources */,
+				EA293981246FCBDA00B8A898 /* jump.wav in Resources */,
+				EA293993246FE60000B8A898 /* success1.wav in Resources */,
 				EA26186F2462A7EA00ADFE5C /* LaunchScreen.storyboard in Resources */,
+				EA29398F246FE60000B8A898 /* success4.wav in Resources */,
+				EA293991246FE60000B8A898 /* coin1.mp3 in Resources */,
 				EA26186C2462A7EA00ADFE5C /* Preview Assets.xcassets in Resources */,
+				EA29399B246FE92800B8A898 /* failure2.wav in Resources */,
 				EA2618692462A7EA00ADFE5C /* Assets.xcassets in Resources */,
+				EA293999246FE92800B8A898 /* failure3.wav in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -176,6 +235,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				EA293985246FCC4900B8A898 /* MediaModule.swift in Sources */,
 				EA7AF2CA246FA0180004BDC4 /* AnimationPresets.swift in Sources */,
 				EAFAA58124653BB00006CAFF /* DataModel.swift in Sources */,
 				EA7AF2C8246F9FFD0004BDC4 /* GameLogistics.swift in Sources */,
@@ -183,9 +243,9 @@
 				EA2618602462A7E300ADFE5C /* AppDelegate.swift in Sources */,
 				EA7AF2CC246FA1530004BDC4 /* NPCUI.swift in Sources */,
 				EA2CE767246CB775004B8A34 /* GameSuccessView.swift in Sources */,
-				EACB7CF2246A4FEA00DDBB1F /* SwiftUIView.swift in Sources */,
 				EA2618652462A7E300ADFE5C /* WWDC20PlaygroundTest.xcdatamodeld in Sources */,
 				EA7AF2CE246FA1A90004BDC4 /* PlayerUI.swift in Sources */,
+				EA29397D246FC55A00B8A898 /* BackgroundView.swift in Sources */,
 				EA2CE769246CB77F004B8A34 /* GameFailureView.swift in Sources */,
 				EA2618672462A7E300ADFE5C /* ContentView.swift in Sources */,
 				EA2618622462A7E300ADFE5C /* SceneDelegate.swift in Sources */,

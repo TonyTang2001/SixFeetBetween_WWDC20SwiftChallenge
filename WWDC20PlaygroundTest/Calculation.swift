@@ -29,6 +29,22 @@ public func getDistance(_ point1: ScreenCoordinate, _ point2: ScreenCoordinate) 
     return ptDistance
 }
 
+// check if npc approches player
+public func approachPlayer(_ npc: ScreenCoordinate, _ player: ScreenCoordinate) -> Bool {
+    let distance = getDistance(npc, player)
+    if distance <= safetyDistance {
+        return true
+    } else {
+        return false
+    }
+}
+
+// calculate player exact coordinate
+public func getPlayerCoord() -> ScreenCoordinate {
+    let playerPosition = ScreenCoordinate(x: currentPosition.width + viewWidth/2 , y: currentPosition.height + viewHeight - playerSize/2)
+    return playerPosition
+}
+
 // check if the coordinate is out of view
 public func outOfView(coord: ScreenCoordinate) -> Bool {
     let coordLeftX = coord.x - 20
@@ -40,4 +56,35 @@ public func outOfView(coord: ScreenCoordinate) -> Bool {
     } else {
         return false
     }
+}
+
+// calculate shortest length from a point to a line segment
+public func distanceFromPoint(p: ScreenCoordinate, toLineSegment v: ScreenCoordinate, and w: ScreenCoordinate) -> CGFloat {
+    let pv_dx = p.x - v.x
+    let pv_dy = p.y - v.y
+    let wv_dx = w.x - v.x
+    let wv_dy = w.y - v.y
+
+    let dot = pv_dx * wv_dx + pv_dy * wv_dy
+    let len_sq = wv_dx * wv_dx + wv_dy * wv_dy
+    let param = dot / len_sq
+
+    var int_x, int_y: CGFloat /* intersection of normal to vw that goes through p */
+
+    if param < 0 || (v.x == w.x && v.y == w.y) {
+        int_x = v.x
+        int_y = v.y
+    } else if param > 1 {
+        int_x = w.x
+        int_y = w.y
+    } else {
+        int_x = v.x + param * wv_dx
+        int_y = v.y + param * wv_dy
+    }
+
+    /* Components of normal */
+    let dx = p.x - int_x
+    let dy = p.y - int_y
+
+    return sqrt(dx * dx + dy * dy)
 }

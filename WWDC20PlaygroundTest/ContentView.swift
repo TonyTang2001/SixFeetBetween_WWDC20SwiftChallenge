@@ -54,21 +54,28 @@ struct InterfaceView: View {
 }
 
 // MARK: - ContentView
-struct ContentView: View {
+public struct ContentView: View {
     
     @State private var xDistance: CGFloat = 0
     @State private var yDistance: CGFloat = 0
     @State private var distance: CGFloat = 0
     @State private var isDragging: Bool = false
     
-    @State private var npcCount = 10
+    @State private var viewW: CGFloat = 400
+    @State private var viewH: CGFloat = 600
+    
+    @State private var npcCount = 15
     
     @State private var initialized = false
     
     @State private var gameEnded = false
     
-    var body: some View {
+    public init() {}
+    
+    public var body: some View {
         ZStack {
+            
+            BackgroundView(canvasWidth: $viewW, canvasHeight: $viewH)
             
             VStack {
                 
@@ -77,10 +84,18 @@ struct ContentView: View {
                         Button(action: {
                             viewWidth = geometry.size.width
                             viewHeight = geometry.size.height
+                            
+                            self.viewW = viewWidth
+                            self.viewH = viewHeight
+                            
                             npcCoords = self.generateNPCCoords(viewWidth: viewWidth, viewHeight: viewHeight)
                             self.initialized = true
                         }) {
-                            Text("Initialize")
+                            Text("Start Game")
+                                .foregroundColor(Color(UIColor.systemYellow))
+                                .fontWeight(.semibold)
+                                .font(.system(.title, design: .rounded))
+                                .multilineTextAlignment(.center)
                         }
                     }
                     
@@ -108,8 +123,6 @@ struct ContentView: View {
             
             if gameEnded && playerWon {
                 GameSuccessView()
-                    .offset(x: 0, y: gameEnded ? 0 : 1000)
-                
             } else if gameEnded && !playerWon {
                 GameFailureView()
             }

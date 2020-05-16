@@ -7,6 +7,7 @@
 //
 
 import SwiftUI
+import AVFoundation
 
 struct SuccessSignView: View {
     var body: some View {
@@ -28,6 +29,9 @@ struct SuccessRatingView: View {
     
     func determineColor(index: Int) -> Color {
         if index <= starCount {
+            DispatchQueue.main.asyncAfter(deadline: .now() + 0.2 * Double(index)) {
+                AVAudioPlayer.playSound2(sound: "coin4", type: "wav")
+            }
             return Color.yellow
         } else {
             return Color.gray
@@ -131,6 +135,7 @@ public struct GameSuccessView: View {
             withAnimation {
                 self.appear = true
             }
+            AVAudioPlayer.playSound(sound: "success2", type: "wav")
         }
         .gesture(
             DragGesture().onChanged { value in

@@ -23,11 +23,9 @@ public struct Shake: GeometryEffect {
 }
 
 public extension Animation {
-    static func playerMove() -> Animation {
-        Animation.spring(response: 0.3, dampingFraction: 0.825, blendDuration: 0)
-    }
     
-    static func npcTransition() -> Animation {
-        Animation.easeInOut.speed(0.6)
-    }
+    static let playerMove = Animation.spring(response: 0.3, dampingFraction: 0.75, blendDuration: 0)
+    
+    static let npcTransition = Animation.easeInOut.speed(0.6)
+    
 }

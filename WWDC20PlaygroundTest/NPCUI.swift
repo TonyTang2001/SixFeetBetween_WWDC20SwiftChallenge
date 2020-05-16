@@ -19,7 +19,7 @@ struct NPCInternalView: View {
                 .resizable()
                 .frame(width: npcSize, height: npcSize)
                 .opacity(self.isDragging ? 0.6 : 1.0)
-                .animation(.npcTransition())
+                .animation(.npcTransition)
                 .clipShape(Circle())
             
             // warning range indicator
@@ -29,7 +29,7 @@ struct NPCInternalView: View {
                 .overlay(
                     Circle()
                         .stroke(Color.red.opacity(self.isDragging ? 0.9 : 0), lineWidth: self.isDragging ? npcSize/2 : 0)
-                        .animation(.npcTransition())
+                        .animation(.npcTransition)
             )
         }
             .drawingGroup() // enable off-screen Metal rendering
@@ -57,6 +57,10 @@ struct NPCView: View {
     }
     
     func toNewPosition() {
+        if endOnHold {
+            return
+        }
+        
         if !isDragging {
             let const: CGFloat = 8
             
@@ -65,8 +69,10 @@ struct NPCView: View {
             var xMove = CGFloat.random(in: -const...const)
             var yMove = CGFloat.random(in: -const...const)
             
+//              let destCoord = ScreenCoordinate(x: previousCoord.x + xMove, y: previousCoord.y + yMove)
+            let playerPosition = getPlayerCoord()
             
-            while outOfView(coord: ScreenCoordinate(x: previousCoord.x + xMove, y: previousCoord.y + yMove)) {
+            while outOfView(coord: ScreenCoordinate(x: previousCoord.x + xMove, y: previousCoord.y + yMove)) || approachPlayer(ScreenCoordinate(x: previousCoord.x + xMove, y: previousCoord.y + yMove), playerPosition)  {
                 xMove = CGFloat.random(in: -const...const)
                 yMove = CGFloat.random(in: -const...const)
             }
@@ -75,10 +81,9 @@ struct NPCView: View {
             
             npcCoords[self.index] = self.npcCurrentCoords
             
-            print(npcCoords[self.index].last)
         }
         
-        DispatchQueue.main.asyncAfter(deadline: .now() + .random(in: 1...1)) {
+        DispatchQueue.main.asyncAfter(deadline: .now() + .random(in: 0.8...1.2)) {
             
             npcCoords[self.index] = self.npcCurrentCoords
             self.toNewPosition()

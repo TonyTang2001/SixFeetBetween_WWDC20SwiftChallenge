@@ -8,6 +8,7 @@
 
 import Foundation
 import SwiftUI
+import AVFoundation
 
 // MARK: - Player
 struct MovePathIndicatorView: View {
@@ -60,7 +61,7 @@ public struct PlayerView: View {
                 // invalid move warning indication
                 .modifier(Shake(animatableData: CGFloat(invalidMoveCount)))
                 // movement animation
-                .animation(.playerMove())
+                .animation(.playerMove)
             
         }
         .offset(showPathPreview ? newPosition : playerCurrentPosition())
@@ -69,23 +70,32 @@ public struct PlayerView: View {
     
     private func playerCurrentPosition() -> CGSize {
         
+        if endOnHold {
+            return newPosition
+        }
+        
         let jump = destinationPreviewCalculation(inputX: inputX, inputY: inputY)
         
         currentPosition = CGSize(width: jump.width + newPosition.width, height: jump.height + newPosition.height)
         
-        if currentPosition.width + viewWidth/2 < 0 || currentPosition.width > viewWidth/2 || currentPosition.height + viewHeight - playerSize/2 > viewHeight {
+        let playerDest = getPlayerCoord()
+        if playerDest.x < 0 || playerDest.x > viewWidth || playerDest.y > viewHeight {
             print("Out of view")
             
             // have to use async here to prevent updating state variable during UI rerendering
             DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
                 // trigger shaking animation to indicate invalid move warning
                 withAnimation(.default) {
+                    AVAudioPlayer.playSound(sound: "error1", type: "wav")
                     self.invalidMoveCount += 1
                     self.showPathPreview = true
                 }
             }
             
         } else {
+            // valid move
+            AVAudioPlayer.playSound(sound: "jump", type: "wav")
+            previousPosition = ScreenCoordinate(x: newPosition.width + viewWidth/2 , y: newPosition.height + viewHeight - playerSize/2)
             newPosition = currentPosition
         }
         
@@ -93,7 +103,8 @@ public struct PlayerView: View {
             let gameStatus = gameStateCheck()
             if gameStatus.ended {
                 // game ended
-                DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
+                endOnHold = true
+                DispatchQueue.main.asyncAfter(deadline: .now() + 0.01) {
                     self.gameEnded = true
                 }
                 
@@ -107,7 +118,7 @@ public struct PlayerView: View {
                     playerWon = false
                 }
             } else {
-                // game still gping on
+                // game still going on
             }
         }
         

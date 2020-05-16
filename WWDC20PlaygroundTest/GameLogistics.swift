@@ -7,11 +7,12 @@
 //
 
 import Foundation
+import SwiftUI
 
 public func gameStateCheck() -> (ended: Bool, succeeded: Bool) {
     var isEnded = false
     var isSucceeded = false
-    let playerPosition = ScreenCoordinate(x: currentPosition.width + viewWidth/2 , y: currentPosition.height + viewHeight - playerSize/2)
+    let playerPosition = getPlayerCoord()
     
     if playerPosition.y < 0 {
         isEnded = true
@@ -29,13 +30,13 @@ public func gameStateCheck() -> (ended: Bool, succeeded: Bool) {
         }
         
         
-        print("npc: \(npcCoordNow)")
-        print("player: \(previousPosition)")
-        print("player: \(playerPosition)")
+//        print("npc: \(npcCoordNow)")
+//        print("player: \(previousPosition)")
+//        print("player: \(playerPosition)")
+//        print(distanceFromPoint(p: npcCoordNow, toLineSegment: previousPosition, and: playerPosition))
+        let distance = distanceFromPoint(p: npcCoordNow, toLineSegment: previousPosition, and: playerPosition)
         
-        let distance = getDistance(npcCoordNow, playerPosition)
-        print("distance: \(distance)")
-        if distance <= safetyDistance {
+        if distance < safetyDistance {
             isEnded = true
             isSucceeded = false
         }

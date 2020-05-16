@@ -10,8 +10,13 @@ import Foundation
 import SwiftUI
 
 public struct ScreenCoordinate: Hashable {
-    var x: CGFloat
-    var y: CGFloat
+    public var x: CGFloat
+    public var y: CGFloat
+    
+    public init(x: CGFloat, y: CGFloat) {
+        self.x = x
+        self.y = y
+    }
 }
 
 // MARK: - View Information
@@ -25,7 +30,7 @@ public let npcWarningRangeSize: CGFloat = npcSize * 1.5
 public let safetyDistance: CGFloat =  (npcSize*2 + playerSize)/2
 
 // MARK: - Player Info
-public var previousPosition: CGSize = .zero
+public var previousPosition = ScreenCoordinate(x: 0, y: 0)
 public var currentPosition: CGSize = .zero
 public var newPosition: CGSize = .zero
 
@@ -35,3 +40,4 @@ public var npcCoords: [[ScreenCoordinate]] = [[]]
 // MARK: - Game Status
 public var playerWon: Bool = false
 public var started: Bool = false
+public var endOnHold: Bool = false

@@ -7,6 +7,7 @@
 //
 
 import SwiftUI
+import AVFoundation
 
 struct FailureSignView: View {
     var body: some View {
@@ -39,7 +40,7 @@ struct FaliureThumbNailView: View {
                 .rotationEffect(self.animate ? Angle(degrees: -45) : Angle(degrees: 0))
         }
         .frame(width: 60, height: 60)
-        .animation(Animation.spring().delay(1))
+        .animation(Animation.spring().delay(0.1))
         .onAppear {
             withAnimation {
                 self.animate = true
@@ -104,6 +105,7 @@ public struct GameFailureView: View {
             withAnimation {
                 self.appear = true
             }
+            AVAudioPlayer.playSound(sound: "error2", type: "wav")
         }
         .gesture(
             DragGesture().onChanged { value in
