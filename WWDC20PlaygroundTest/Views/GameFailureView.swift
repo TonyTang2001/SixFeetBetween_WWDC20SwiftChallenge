@@ -102,9 +102,7 @@ public struct GameFailureView: View {
         }
         .opacity(self.appear ? 1 : 0)
         .onAppear {
-            withAnimation {
-                self.appear = true
-            }
+            self.appear = true
             AVAudioPlayer.stopPlaySoundBG()
             AVAudioPlayer.playSound(sound: "error2", type: "wav")
         }

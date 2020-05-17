@@ -55,9 +55,10 @@ public struct PlayerView: View {
                 .font(.system(size: 25, weight: .bold))
             
             // player icon
-            Circle()
+            Image(uiImage: UIImage(named: "Ninja_Circle")!)
+                .resizable()
                 .frame(width: playerSize, height: playerSize)
-                .foregroundColor(playerColor)
+//                .foregroundColor(playerColor)
                 // invalid move warning indication
                 .modifier(Shake(animatableData: CGFloat(invalidMoveCount)))
                 // movement animation
@@ -102,7 +103,7 @@ public struct PlayerView: View {
                 // game ended
                 endOnHold = true
                 endTime = Date()
-                DispatchQueue.main.asyncAfter(deadline: .now() + 0.01) {
+                DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
                     self.gameEnded = true
                 }
                 
@@ -114,6 +115,7 @@ public struct PlayerView: View {
                     // player failed
                     print("player lost")
                     playerWon = false
+                    
                 }
             } else {
                 // game still going on
