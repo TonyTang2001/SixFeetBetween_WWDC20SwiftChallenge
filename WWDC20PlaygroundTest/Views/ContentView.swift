@@ -64,7 +64,7 @@ public struct ContentView: View {
     @State private var viewW: CGFloat = 400
     @State private var viewH: CGFloat = 600
     
-//    @State private var npcCount = npcCount
+    //    @State private var npcCount = npcCount
     
     @State private var initialized = false
     
@@ -100,12 +100,12 @@ public struct ContentView: View {
                             Text("Start Game")
                                 .foregroundColor(Color(UIColor.systemBackground))
                                 .fontWeight(.semibold)
-                                .font(.system(.largeTitle, design: .rounded))
+                                .font(.system(.title, design: .rounded))
                                 .multilineTextAlignment(.center)
                         }
-                        .frame(width: 220, height: 76)
+                        .frame(width: 200, height: 68)
                         .background(Color(UIColor.systemYellow))
-                        .clipShape(RoundedRectangle(cornerRadius: 18, style: .continuous))
+                        .clipShape(RoundedRectangle(cornerRadius: 24, style: .continuous))
                     }
                     
                 } else {
@@ -133,7 +133,7 @@ public struct ContentView: View {
             if gameEnded && playerWon {
                 GameSuccessView()
             } else if gameEnded && !playerWon {
-                GameFailureView() 
+                GameFailureView()
             }
             
         }
