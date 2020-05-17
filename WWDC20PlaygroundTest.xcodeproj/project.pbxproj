@@ -40,7 +40,7 @@
 		EA49601324713B0E00EBDA55 /* ButtonStackView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA49601224713B0E00EBDA55 /* ButtonStackView.swift */; };
 		EA49601524713BD900EBDA55 /* BriefLogisticExplanationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA49601424713BD900EBDA55 /* BriefLogisticExplanationView.swift */; };
 		EA49601724713D1100EBDA55 /* StoryTextIntroView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA49601624713D1100EBDA55 /* StoryTextIntroView.swift */; };
-		EA49601924713E9A00EBDA55 /* InternalTutorialPart1View.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA49601824713E9A00EBDA55 /* InternalTutorialPart1View.swift */; };
+		EA49601924713E9A00EBDA55 /* InternalTutorialPartialView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA49601824713E9A00EBDA55 /* InternalTutorialPartialView.swift */; };
 		EA49601B2471468500EBDA55 /* IconView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA49601A2471468500EBDA55 /* IconView.swift */; };
 		EA7AF2C6246F9F360004BDC4 /* Calculation.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA7AF2C5246F9F360004BDC4 /* Calculation.swift */; };
 		EA7AF2C8246F9FFD0004BDC4 /* GameLogistics.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA7AF2C7246F9FFD0004BDC4 /* GameLogistics.swift */; };
@@ -95,7 +95,7 @@
 		EA49601224713B0E00EBDA55 /* ButtonStackView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ButtonStackView.swift; sourceTree = "<group>"; };
 		EA49601424713BD900EBDA55 /* BriefLogisticExplanationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BriefLogisticExplanationView.swift; sourceTree = "<group>"; };
 		EA49601624713D1100EBDA55 /* StoryTextIntroView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StoryTextIntroView.swift; sourceTree = "<group>"; };
-		EA49601824713E9A00EBDA55 /* InternalTutorialPart1View.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InternalTutorialPart1View.swift; sourceTree = "<group>"; };
+		EA49601824713E9A00EBDA55 /* InternalTutorialPartialView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InternalTutorialPartialView.swift; sourceTree = "<group>"; };
 		EA49601A2471468500EBDA55 /* IconView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IconView.swift; sourceTree = "<group>"; };
 		EA7AF2C5246F9F360004BDC4 /* Calculation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Calculation.swift; sourceTree = "<group>"; };
 		EA7AF2C7246F9FFD0004BDC4 /* GameLogistics.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameLogistics.swift; sourceTree = "<group>"; };
@@ -213,7 +213,7 @@
 				EA8B674E2470E7DF00240747 /* StoryView.swift */,
 				EA49601224713B0E00EBDA55 /* ButtonStackView.swift */,
 				EA8B67502470E7F400240747 /* TutorialView.swift */,
-				EA49601824713E9A00EBDA55 /* InternalTutorialPart1View.swift */,
+				EA49601824713E9A00EBDA55 /* InternalTutorialPartialView.swift */,
 				EA078F8F2471365700B31133 /* InternalTutorialView.swift */,
 				EA49601A2471468500EBDA55 /* IconView.swift */,
 				EA49601424713BD900EBDA55 /* BriefLogisticExplanationView.swift */,
@@ -363,7 +363,7 @@
 				EA29397D246FC55A00B8A898 /* BackgroundView.swift in Sources */,
 				EA2CE769246CB77F004B8A34 /* GameFailureView.swift in Sources */,
 				EA2618672462A7E300ADFE5C /* ContentView.swift in Sources */,
-				EA49601924713E9A00EBDA55 /* InternalTutorialPart1View.swift in Sources */,
+				EA49601924713E9A00EBDA55 /* InternalTutorialPartialView.swift in Sources */,
 				EA2618622462A7E300ADFE5C /* SceneDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

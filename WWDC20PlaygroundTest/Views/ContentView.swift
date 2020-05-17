@@ -98,11 +98,14 @@ public struct ContentView: View {
                             self.initialized = true
                         }) {
                             Text("Start Game")
-                                .foregroundColor(Color(UIColor.systemYellow))
+                                .foregroundColor(Color(UIColor.systemBackground))
                                 .fontWeight(.semibold)
-                                .font(.system(.title, design: .rounded))
+                                .font(.system(.largeTitle, design: .rounded))
                                 .multilineTextAlignment(.center)
                         }
+                        .frame(width: 220, height: 76)
+                        .background(Color(UIColor.systemYellow))
+                        .clipShape(RoundedRectangle(cornerRadius: 18, style: .continuous))
                     }
                     
                 } else {

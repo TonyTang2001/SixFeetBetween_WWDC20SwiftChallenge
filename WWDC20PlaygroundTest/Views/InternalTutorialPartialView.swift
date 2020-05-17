@@ -1,5 +1,5 @@
 //
-//  InternalTutorialPart1View.swift
+//  InternalTutorialPartialView.swift
 //  WWDC20PlaygroundTest
 //
 //  Created by Tony Tang on 5/17/20.
