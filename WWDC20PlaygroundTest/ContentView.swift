@@ -7,6 +7,7 @@
 //
 
 import SwiftUI
+import AVFoundation
 
 // MARK: - MapSetting
 struct GroundMapView: View {
@@ -34,12 +35,6 @@ struct InterfaceView: View {
     var body: some View {
         
         VStack {
-            HStack {
-                Spacer()
-                VStack {
-                    Text("distance: \(self.distance)")
-                }
-            }
             
             Spacer()
             
@@ -64,7 +59,7 @@ public struct ContentView: View {
     @State private var viewW: CGFloat = 400
     @State private var viewH: CGFloat = 600
     
-    @State private var npcCount = 15
+//    @State private var npcCount = npcCount
     
     @State private var initialized = false
     
@@ -82,11 +77,17 @@ public struct ContentView: View {
                 if !initialized {
                     GeometryReader { geometry in
                         Button(action: {
+                            // get and setup canvas size
                             viewWidth = geometry.size.width
                             viewHeight = geometry.size.height
-                            
                             self.viewW = viewWidth
                             self.viewH = viewHeight
+                            
+                            // start game timer
+                            startTime = Date()
+                            
+                            // start playing background sound effect
+                            AVAudioPlayer.startPlaySoundBG()
                             
                             npcCoords = self.generateNPCCoords(viewWidth: viewWidth, viewHeight: viewHeight)
                             self.initialized = true
@@ -124,7 +125,7 @@ public struct ContentView: View {
             if gameEnded && playerWon {
                 GameSuccessView()
             } else if gameEnded && !playerWon {
-                GameFailureView()
+                GameFailureView() 
             }
             
         }

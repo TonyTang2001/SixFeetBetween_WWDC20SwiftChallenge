@@ -105,6 +105,7 @@ public struct GameFailureView: View {
             withAnimation {
                 self.appear = true
             }
+            AVAudioPlayer.stopPlaySoundBG()
             AVAudioPlayer.playSound(sound: "error2", type: "wav")
         }
         .gesture(

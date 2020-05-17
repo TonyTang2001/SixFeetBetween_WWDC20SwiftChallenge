@@ -24,13 +24,13 @@ struct SuccessSignView: View {
 }
 
 struct SuccessRatingView: View {
-    let starCount = 2
+    let starCount: Int
     @State var start: Bool = false
     
     func determineColor(index: Int) -> Color {
         if index <= starCount {
-            DispatchQueue.main.asyncAfter(deadline: .now() + 0.2 * Double(index)) {
-                AVAudioPlayer.playSound2(sound: "coin4", type: "wav")
+            DispatchQueue.main.asyncAfter(deadline: .now() + 0.3 * Double(index)) {
+                AVAudioPlayer.playSound2(sound: "coin7", type: "wav")
             }
             return Color.yellow
         } else {
@@ -85,6 +85,8 @@ public struct GameSuccessView: View {
     @State var appear = false
     @State var userDrag = CGSize.zero
     
+    let gameDuration = getGameDuration(from: startTime, to: endTime)
+    
     public init() {}
     
     let finalScore = 983
@@ -103,7 +105,7 @@ public struct GameSuccessView: View {
                 SuccessSignView()
                 
                 Spacer()
-                SuccessRatingView()
+                SuccessRatingView(starCount: getGameRating(duration: gameDuration))
                 
                 Spacer()
                 Text(successSentences[textOption])
@@ -135,6 +137,7 @@ public struct GameSuccessView: View {
             withAnimation {
                 self.appear = true
             }
+            AVAudioPlayer.stopPlaySoundBG()
             AVAudioPlayer.playSound(sound: "success2", type: "wav")
         }
         .gesture(

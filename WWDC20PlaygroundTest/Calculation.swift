@@ -88,3 +88,23 @@ public func distanceFromPoint(p: ScreenCoordinate, toLineSegment v: ScreenCoordi
 
     return sqrt(dx * dx + dy * dy)
 }
+
+// get game duration from start to end
+func getGameDuration(from start: Date, to end: Date) -> Int  {
+    let calendar = Calendar.current
+    let dateComponents = calendar.dateComponents([Calendar.Component.second], from: start, to: end)
+
+    let seconds = dateComponents.second
+    return Int(seconds!)
+}
+
+// get game rating
+func getGameRating(duration: Int) -> Int {
+    if duration < npcCount/2 {
+        return 3
+    } else if duration < npcCount {
+        return 2
+    } else {
+        return 1
+    }
+}

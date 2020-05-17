@@ -30,6 +30,10 @@
 		EA293999246FE92800B8A898 /* failure3.wav in Resources */ = {isa = PBXBuildFile; fileRef = EA293996246FE92800B8A898 /* failure3.wav */; };
 		EA29399A246FE92800B8A898 /* failure1.wav in Resources */ = {isa = PBXBuildFile; fileRef = EA293997246FE92800B8A898 /* failure1.wav */; };
 		EA29399B246FE92800B8A898 /* failure2.wav in Resources */ = {isa = PBXBuildFile; fileRef = EA293998246FE92800B8A898 /* failure2.wav */; };
+		EA29399D2470B2A300B8A898 /* coin5.wav in Resources */ = {isa = PBXBuildFile; fileRef = EA29399C2470B2A300B8A898 /* coin5.wav */; };
+		EA29399F2470B30A00B8A898 /* coin6.wav in Resources */ = {isa = PBXBuildFile; fileRef = EA29399E2470B30A00B8A898 /* coin6.wav */; };
+		EA2939A12470B33D00B8A898 /* coin7.wav in Resources */ = {isa = PBXBuildFile; fileRef = EA2939A02470B33D00B8A898 /* coin7.wav */; };
+		EA2939A32470B76500B8A898 /* clock1.wav in Resources */ = {isa = PBXBuildFile; fileRef = EA2939A22470B76500B8A898 /* clock1.wav */; };
 		EA2CE767246CB775004B8A34 /* GameSuccessView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA2CE766246CB775004B8A34 /* GameSuccessView.swift */; };
 		EA2CE769246CB77F004B8A34 /* GameFailureView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA2CE768246CB77F004B8A34 /* GameFailureView.swift */; };
 		EA7AF2C6246F9F360004BDC4 /* Calculation.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA7AF2C5246F9F360004BDC4 /* Calculation.swift */; };
@@ -66,6 +70,10 @@
 		EA293996246FE92800B8A898 /* failure3.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = failure3.wav; sourceTree = "<group>"; };
 		EA293997246FE92800B8A898 /* failure1.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = failure1.wav; sourceTree = "<group>"; };
 		EA293998246FE92800B8A898 /* failure2.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = failure2.wav; sourceTree = "<group>"; };
+		EA29399C2470B2A300B8A898 /* coin5.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = coin5.wav; sourceTree = "<group>"; };
+		EA29399E2470B30A00B8A898 /* coin6.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = coin6.wav; sourceTree = "<group>"; };
+		EA2939A02470B33D00B8A898 /* coin7.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = coin7.wav; sourceTree = "<group>"; };
+		EA2939A22470B76500B8A898 /* clock1.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = clock1.wav; sourceTree = "<group>"; };
 		EA2CE766246CB775004B8A34 /* GameSuccessView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameSuccessView.swift; sourceTree = "<group>"; };
 		EA2CE768246CB77F004B8A34 /* GameFailureView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameFailureView.swift; sourceTree = "<group>"; };
 		EA7AF2C5246F9F360004BDC4 /* Calculation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Calculation.swift; sourceTree = "<group>"; };
@@ -126,6 +134,9 @@
 				EA29398D246FE60000B8A898 /* coin2.wav */,
 				EA293988246FE60000B8A898 /* coin3.wav */,
 				EA29398C246FE60000B8A898 /* coin4.wav */,
+				EA29399C2470B2A300B8A898 /* coin5.wav */,
+				EA29399E2470B30A00B8A898 /* coin6.wav */,
+				EA2939A02470B33D00B8A898 /* coin7.wav */,
 				EA293997246FE92800B8A898 /* failure1.wav */,
 				EA293998246FE92800B8A898 /* failure2.wav */,
 				EA293996246FE92800B8A898 /* failure3.wav */,
@@ -133,6 +144,7 @@
 				EA293986246FE60000B8A898 /* success2.wav */,
 				EA29398A246FE60000B8A898 /* success3.wav */,
 				EA293987246FE60000B8A898 /* success4.wav */,
+				EA2939A22470B76500B8A898 /* clock1.wav */,
 				EA2618682462A7EA00ADFE5C /* Assets.xcassets */,
 				EA26186D2462A7EA00ADFE5C /* LaunchScreen.storyboard */,
 				EA2618702462A7EA00ADFE5C /* Info.plist */,
@@ -209,6 +221,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				EA293994246FE60000B8A898 /* coin4.wav in Resources */,
+				EA2939A12470B33D00B8A898 /* coin7.wav in Resources */,
 				EA29399A246FE92800B8A898 /* failure1.wav in Resources */,
 				EA293990246FE60000B8A898 /* coin3.wav in Resources */,
 				EA293992246FE60000B8A898 /* success3.wav in Resources */,
@@ -217,12 +230,15 @@
 				EA29398E246FE60000B8A898 /* success2.wav in Resources */,
 				EA293995246FE60000B8A898 /* coin2.wav in Resources */,
 				EA293981246FCBDA00B8A898 /* jump.wav in Resources */,
+				EA29399D2470B2A300B8A898 /* coin5.wav in Resources */,
+				EA29399F2470B30A00B8A898 /* coin6.wav in Resources */,
 				EA293993246FE60000B8A898 /* success1.wav in Resources */,
 				EA26186F2462A7EA00ADFE5C /* LaunchScreen.storyboard in Resources */,
 				EA29398F246FE60000B8A898 /* success4.wav in Resources */,
 				EA293991246FE60000B8A898 /* coin1.mp3 in Resources */,
 				EA26186C2462A7EA00ADFE5C /* Preview Assets.xcassets in Resources */,
 				EA29399B246FE92800B8A898 /* failure2.wav in Resources */,
+				EA2939A32470B76500B8A898 /* clock1.wav in Resources */,
 				EA2618692462A7EA00ADFE5C /* Assets.xcassets in Resources */,
 				EA293999246FE92800B8A898 /* failure3.wav in Resources */,
 			);

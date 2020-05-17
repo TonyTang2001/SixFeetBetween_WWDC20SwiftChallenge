@@ -24,6 +24,7 @@ public var viewWidth: CGFloat = 0
 public var viewHeight: CGFloat = 0
 
 // MARK: - Game Setting
+public let npcCount: Int = 15
 public let npcSize: CGFloat = 30
 public let playerSize: CGFloat = 35
 public let npcWarningRangeSize: CGFloat = npcSize * 1.5
@@ -41,3 +42,5 @@ public var npcCoords: [[ScreenCoordinate]] = [[]]
 public var playerWon: Bool = false
 public var started: Bool = false
 public var endOnHold: Bool = false
+public var startTime: Date = Date()
+public var endTime: Date = Date()

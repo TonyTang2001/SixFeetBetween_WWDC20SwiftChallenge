@@ -104,6 +104,7 @@ public struct PlayerView: View {
             if gameStatus.ended {
                 // game ended
                 endOnHold = true
+                endTime = Date()
                 DispatchQueue.main.asyncAfter(deadline: .now() + 0.01) {
                     self.gameEnded = true
                 }

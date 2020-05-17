@@ -11,16 +11,18 @@ import AVFoundation
 
 public var audioPlayer: AVAudioPlayer?
 public var audioPlayer2: AVAudioPlayer?
+public var audioPlayerBG: AVAudioPlayer?
 
 extension AVAudioPlayer {
-
+    
     static func playSound(sound: String, type: String) {
         guard let path = Bundle.main.path(forResource: sound, ofType: type) else {
             fatalError("Could not find path for audio file named: \(sound)")
         }
         do {
-//            var audioPlayer: AVAudioPlayer?
+            //            var audioPlayer: AVAudioPlayer?
             audioPlayer = try AVAudioPlayer(contentsOf: URL(fileURLWithPath: path))
+            audioPlayer?.volume = 0.2
             audioPlayer?.play()
         } catch {
             print("Error: Could not play sound file")
@@ -34,6 +36,7 @@ extension AVAudioPlayer {
         }
         do {
             audioPlayer2 = try AVAudioPlayer(contentsOf: URL(fileURLWithPath: path))
+            audioPlayer2?.volume = 0.1
             audioPlayer2?.play()
         } catch {
             print("Error: Could not play sound file")
@@ -41,7 +44,26 @@ extension AVAudioPlayer {
         
     }
     
+    static func startPlaySoundBG() {
+        guard let path = Bundle.main.path(forResource: "clock1", ofType: "wav") else {
+            fatalError("Could not find background audio file")
+        }
+        do {
+            audioPlayerBG = try AVAudioPlayer(contentsOf: URL(fileURLWithPath: path))
+            audioPlayerBG?.rate = 4
+            audioPlayerBG?.numberOfLoops = -1
+            audioPlayerBG?.volume = 0.05
+            audioPlayerBG?.play()
+        } catch {
+            print("Error: Could not play sound file")
+        }
+        
+    }
     
-
+    static func stopPlaySoundBG() {
+        audioPlayerBG?.stop()
+    }
+    
     
 }
+
