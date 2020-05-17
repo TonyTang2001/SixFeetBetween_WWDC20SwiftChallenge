@@ -15,14 +15,13 @@ struct GroundMapView: View {
     
     var body: some View {
         VStack {
-            Image(uiImage: UIImage(named: "factory1")!)
-                .resizable()
+            FactoryView()
                 .frame(width: iconSize, height: iconSize)
+                .foregroundColor(.white)
             
             Spacer()
             
-            Image(uiImage: UIImage(named: "research")!)
-                .resizable()
+            LabView()
                 .frame(width: iconSize, height: iconSize)
         }
     }
