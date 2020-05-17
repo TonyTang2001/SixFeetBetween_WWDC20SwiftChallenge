@@ -120,7 +120,7 @@ public struct GameSuccessView: View {
             .clipShape(RoundedRectangle(cornerRadius: 24, style: .continuous))
             .shadow(color: Color.black.opacity(0.3), radius: 22, x: 16, y: 16)
             .offset(x: 0, y: self.appear ? 0 : 16)
-            .rotation3DEffect(Angle(degrees: Double(0.01 * getLength(x: userDrag.width, y: userDrag.height))), axis: (x: userDrag.width * 0.1, y: userDrag.height * 0.1, z: 0.0))
+            .rotation3DEffect(Angle(degrees: Double(0.07 * getLength(x: userDrag.width, y: userDrag.height))), axis: (x: userDrag.width * 0.1, y: userDrag.height * 0.1, z: 0.0))
             .animation(.easeInOut)
             
             Spacer()

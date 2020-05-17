@@ -34,8 +34,8 @@ public struct BackgroundView: View {
                     .offset(x: CGFloat.random(in: -self.canvasWidth...self.canvasWidth), y: CGFloat.random(in: -self.canvasHeight...self.canvasHeight))
             }
         }
-        .opacity(0.15)
-        .blur(radius: 42)
+        .opacity(0.05)
+        .blur(radius: 50)
         .onAppear {
             self.animateStart = true
         }

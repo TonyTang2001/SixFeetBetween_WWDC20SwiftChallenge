@@ -22,7 +22,7 @@ extension AVAudioPlayer {
         do {
             //            var audioPlayer: AVAudioPlayer?
             audioPlayer = try AVAudioPlayer(contentsOf: URL(fileURLWithPath: path))
-            audioPlayer?.volume = 0.2
+            audioPlayer?.volume = 0.5
             audioPlayer?.play()
         } catch {
             print("Error: Could not play sound file")
@@ -52,7 +52,7 @@ extension AVAudioPlayer {
             audioPlayerBG = try AVAudioPlayer(contentsOf: URL(fileURLWithPath: path))
             audioPlayerBG?.rate = 4
             audioPlayerBG?.numberOfLoops = -1
-            audioPlayerBG?.volume = 0.05
+            audioPlayerBG?.volume = 0.08
             audioPlayerBG?.play()
         } catch {
             print("Error: Could not play sound file")

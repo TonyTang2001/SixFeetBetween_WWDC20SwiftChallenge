@@ -34,6 +34,8 @@ public let safetyDistance: CGFloat =  (npcSize*2 + playerSize)/2
 public var previousPosition = ScreenCoordinate(x: 0, y: 0)
 public var currentPosition: CGSize = .zero
 public var newPosition: CGSize = .zero
+public var playerColor: Color = Color(UIColor.systemBlue)
+public var playerPathColor: Color = Color(UIColor.systemRed)
 
 // MARK: - NPC Coordination
 public var npcCoords: [[ScreenCoordinate]] = [[]]

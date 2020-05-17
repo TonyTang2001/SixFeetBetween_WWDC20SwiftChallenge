@@ -89,7 +89,7 @@ public struct ContentView: View {
                             // start playing background sound effect
                             AVAudioPlayer.startPlaySoundBG()
                             
-                            npcCoords = self.generateNPCCoords(viewWidth: viewWidth, viewHeight: viewHeight)
+                            npcCoords = generateNPCCoords(viewWidth: viewWidth, viewHeight: viewHeight)
                             self.initialized = true
                         }) {
                             Text("Start Game")
@@ -132,40 +132,7 @@ public struct ContentView: View {
         
     }
     
-    private func generateNPCCoords(viewWidth: CGFloat, viewHeight: CGFloat) -> [[ScreenCoordinate]] {
-        var resultCoords: [[ScreenCoordinate]] = [[]]
-        
-        for _ in 0..<npcCount {
-            
-            var localSlotX = Int((viewWidth / (npcSize * 1.5)) - 1)
-            var randX = CGFloat(Int.random(in: 0...localSlotX) * Int((npcSize * 1.5)) + Int((npcSize * 1.5)) / 2)
-            
-            resultCoords.forEach { coordArray in
-                guard let coord = coordArray.last else { return }
-                if coord.x == randX {
-                    localSlotX = Int((viewWidth / (npcSize * 1.5)) - 1)
-                    randX = CGFloat(Int.random(in: 0...localSlotX) * Int((npcSize * 1.5)) + Int((npcSize * 1.5)) / 2)
-                }
-            }
-            
-            var localSlotY = Int((viewHeight / (npcSize * 1.5)) - 3)
-            var randY = CGFloat(Int.random(in: 0...localSlotY) * Int((npcSize * 1.5)) + Int((npcSize * 1.5)) / 2)
-            
-            resultCoords.forEach { coordArray in
-                guard let coord = coordArray.last else { return }
-                if coord.y == randY {
-                    localSlotY = Int((viewHeight / (npcSize * 1.5)) - 3)
-                    randY = CGFloat(Int.random(in: 0...localSlotY) * Int((npcSize * 1.5)) + Int((npcSize * 1.5)) / 2)
-                }
-            }
-            
-            let coord = [ScreenCoordinate(x: randX, y: randY)]
-            
-            resultCoords.append(coord)
-        }
-        resultCoords.remove(at: 0)
-        return resultCoords
-    }
+    
 }
 
 

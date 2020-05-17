@@ -127,6 +127,27 @@
 				EA2CE766246CB775004B8A34 /* GameSuccessView.swift */,
 				EA2CE768246CB77F004B8A34 /* GameFailureView.swift */,
 				EAFAA58024653BB00006CAFF /* DataModel.swift */,
+				EA2939A42470BC1000B8A898 /* Sound Effect */,
+				EA2618682462A7EA00ADFE5C /* Assets.xcassets */,
+				EA26186D2462A7EA00ADFE5C /* LaunchScreen.storyboard */,
+				EA2618702462A7EA00ADFE5C /* Info.plist */,
+				EA2618632462A7E300ADFE5C /* WWDC20PlaygroundTest.xcdatamodeld */,
+				EA26186A2462A7EA00ADFE5C /* Preview Content */,
+			);
+			path = WWDC20PlaygroundTest;
+			sourceTree = "<group>";
+		};
+		EA26186A2462A7EA00ADFE5C /* Preview Content */ = {
+			isa = PBXGroup;
+			children = (
+				EA26186B2462A7EA00ADFE5C /* Preview Assets.xcassets */,
+			);
+			path = "Preview Content";
+			sourceTree = "<group>";
+		};
+		EA2939A42470BC1000B8A898 /* Sound Effect */ = {
+			isa = PBXGroup;
+			children = (
 				EA293980246FCBDA00B8A898 /* error1.wav */,
 				EA29397F246FCBDA00B8A898 /* error2.wav */,
 				EA29397E246FCBDA00B8A898 /* jump.wav */,
@@ -145,21 +166,8 @@
 				EA29398A246FE60000B8A898 /* success3.wav */,
 				EA293987246FE60000B8A898 /* success4.wav */,
 				EA2939A22470B76500B8A898 /* clock1.wav */,
-				EA2618682462A7EA00ADFE5C /* Assets.xcassets */,
-				EA26186D2462A7EA00ADFE5C /* LaunchScreen.storyboard */,
-				EA2618702462A7EA00ADFE5C /* Info.plist */,
-				EA2618632462A7E300ADFE5C /* WWDC20PlaygroundTest.xcdatamodeld */,
-				EA26186A2462A7EA00ADFE5C /* Preview Content */,
 			);
-			path = WWDC20PlaygroundTest;
-			sourceTree = "<group>";
-		};
-		EA26186A2462A7EA00ADFE5C /* Preview Content */ = {
-			isa = PBXGroup;
-			children = (
-				EA26186B2462A7EA00ADFE5C /* Preview Assets.xcassets */,
-			);
-			path = "Preview Content";
+			path = "Sound Effect";
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */

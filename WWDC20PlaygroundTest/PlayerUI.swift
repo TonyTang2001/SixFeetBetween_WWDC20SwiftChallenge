@@ -51,24 +51,24 @@ public struct PlayerView: View {
                 .resizable()
                 .frame(width: playerSize, height: playerSize)
                 .offset(destinationPreviewCalculation(inputX: inputX, inputY: inputY))
-                .foregroundColor(Color.red.opacity(showPathPreview ? 1 : 0))
+                .foregroundColor(playerPathColor.opacity(showPathPreview ? 1 : 0))
                 .font(.system(size: 25, weight: .bold))
             
             // player icon
             Circle()
                 .frame(width: playerSize, height: playerSize)
-                .foregroundColor(Color.blue)
+                .foregroundColor(playerColor)
                 // invalid move warning indication
                 .modifier(Shake(animatableData: CGFloat(invalidMoveCount)))
                 // movement animation
                 .animation(.playerMove)
             
         }
-        .offset(showPathPreview ? newPosition : playerCurrentPosition())
+        .offset(showPathPreview ? newPosition : playerMove())
         
     }
     
-    private func playerCurrentPosition() -> CGSize {
+    private func playerMove() -> CGSize {
         
         if endOnHold {
             return newPosition
@@ -78,11 +78,8 @@ public struct PlayerView: View {
         
         currentPosition = CGSize(width: jump.width + newPosition.width, height: jump.height + newPosition.height)
         
-        let playerDest = getPlayerCoord()
-        if playerDest.x < 0 || playerDest.x > viewWidth || playerDest.y > viewHeight {
-            print("Out of view")
-            
-            // have to use async here to prevent updating state variable during UI rerendering
+        if playerOutOfView() {
+            // use async to prevent updating state variable during UI rerendering
             DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
                 // trigger shaking animation to indicate invalid move warning
                 withAnimation(.default) {
