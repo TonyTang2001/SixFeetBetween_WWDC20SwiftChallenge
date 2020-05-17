@@ -42,6 +42,14 @@
 		EA7AF2CC246FA1530004BDC4 /* NPCUI.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA7AF2CB246FA1530004BDC4 /* NPCUI.swift */; };
 		EA7AF2CE246FA1A90004BDC4 /* PlayerUI.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA7AF2CD246FA1A90004BDC4 /* PlayerUI.swift */; };
 		EA8B67422470DD2700240747 /* Ninja_Circle.png in Resources */ = {isa = PBXBuildFile; fileRef = EA8B67412470DD2600240747 /* Ninja_Circle.png */; };
+		EA8B674A2470E7C400240747 /* factory2.png in Resources */ = {isa = PBXBuildFile; fileRef = EA8B67462470E7C300240747 /* factory2.png */; };
+		EA8B674B2470E7C400240747 /* wash_hand.png in Resources */ = {isa = PBXBuildFile; fileRef = EA8B67472470E7C400240747 /* wash_hand.png */; };
+		EA8B674C2470E7C400240747 /* humanw_mask.png in Resources */ = {isa = PBXBuildFile; fileRef = EA8B67482470E7C400240747 /* humanw_mask.png */; };
+		EA8B674D2470E7C400240747 /* factory1.png in Resources */ = {isa = PBXBuildFile; fileRef = EA8B67492470E7C400240747 /* factory1.png */; };
+		EA8B674F2470E7DF00240747 /* StoryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA8B674E2470E7DF00240747 /* StoryView.swift */; };
+		EA8B67512470E7F400240747 /* TutorialView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA8B67502470E7F400240747 /* TutorialView.swift */; };
+		EA8B67542470E95000240747 /* production.png in Resources */ = {isa = PBXBuildFile; fileRef = EA8B67522470E95000240747 /* production.png */; };
+		EA8B67552470E95000240747 /* research.png in Resources */ = {isa = PBXBuildFile; fileRef = EA8B67532470E95000240747 /* research.png */; };
 		EAFAA58124653BB00006CAFF /* DataModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = EAFAA58024653BB00006CAFF /* DataModel.swift */; };
 /* End PBXBuildFile section */
 
@@ -83,6 +91,14 @@
 		EA7AF2CB246FA1530004BDC4 /* NPCUI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NPCUI.swift; sourceTree = "<group>"; };
 		EA7AF2CD246FA1A90004BDC4 /* PlayerUI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayerUI.swift; sourceTree = "<group>"; };
 		EA8B67412470DD2600240747 /* Ninja_Circle.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = Ninja_Circle.png; path = ../../../../../Downloads/Ninja_Circle.png; sourceTree = "<group>"; };
+		EA8B67462470E7C300240747 /* factory2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = factory2.png; sourceTree = "<group>"; };
+		EA8B67472470E7C400240747 /* wash_hand.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = wash_hand.png; sourceTree = "<group>"; };
+		EA8B67482470E7C400240747 /* humanw_mask.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = humanw_mask.png; sourceTree = "<group>"; };
+		EA8B67492470E7C400240747 /* factory1.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = factory1.png; sourceTree = "<group>"; };
+		EA8B674E2470E7DF00240747 /* StoryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StoryView.swift; sourceTree = "<group>"; };
+		EA8B67502470E7F400240747 /* TutorialView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TutorialView.swift; sourceTree = "<group>"; };
+		EA8B67522470E95000240747 /* production.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = production.png; sourceTree = "<group>"; };
+		EA8B67532470E95000240747 /* research.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = research.png; sourceTree = "<group>"; };
 		EAFAA58024653BB00006CAFF /* DataModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataModel.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -169,6 +185,12 @@
 			isa = PBXGroup;
 			children = (
 				EA8B67412470DD2600240747 /* Ninja_Circle.png */,
+				EA8B67492470E7C400240747 /* factory1.png */,
+				EA8B67462470E7C300240747 /* factory2.png */,
+				EA8B67482470E7C400240747 /* humanw_mask.png */,
+				EA8B67472470E7C400240747 /* wash_hand.png */,
+				EA8B67522470E95000240747 /* production.png */,
+				EA8B67532470E95000240747 /* research.png */,
 			);
 			path = "Visual Assets";
 			sourceTree = "<group>";
@@ -181,6 +203,8 @@
 				EA7AF2CB246FA1530004BDC4 /* NPCUI.swift */,
 				EA7AF2CD246FA1A90004BDC4 /* PlayerUI.swift */,
 				EA2CE766246CB775004B8A34 /* GameSuccessView.swift */,
+				EA8B674E2470E7DF00240747 /* StoryView.swift */,
+				EA8B67502470E7F400240747 /* TutorialView.swift */,
 				EA2CE768246CB77F004B8A34 /* GameFailureView.swift */,
 			);
 			path = Views;
@@ -263,9 +287,11 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				EA8B674D2470E7C400240747 /* factory1.png in Resources */,
 				EA293994246FE60000B8A898 /* coin4.wav in Resources */,
 				EA2939A12470B33D00B8A898 /* coin7.wav in Resources */,
 				EA29399A246FE92800B8A898 /* failure1.wav in Resources */,
+				EA8B67552470E95000240747 /* research.png in Resources */,
 				EA293990246FE60000B8A898 /* coin3.wav in Resources */,
 				EA293992246FE60000B8A898 /* success3.wav in Resources */,
 				EA293982246FCBDA00B8A898 /* error2.wav in Resources */,
@@ -276,8 +302,12 @@
 				EA8B67422470DD2700240747 /* Ninja_Circle.png in Resources */,
 				EA29399D2470B2A300B8A898 /* coin5.wav in Resources */,
 				EA29399F2470B30A00B8A898 /* coin6.wav in Resources */,
+				EA8B674B2470E7C400240747 /* wash_hand.png in Resources */,
+				EA8B674C2470E7C400240747 /* humanw_mask.png in Resources */,
 				EA293993246FE60000B8A898 /* success1.wav in Resources */,
 				EA26186F2462A7EA00ADFE5C /* LaunchScreen.storyboard in Resources */,
+				EA8B67542470E95000240747 /* production.png in Resources */,
+				EA8B674A2470E7C400240747 /* factory2.png in Resources */,
 				EA29398F246FE60000B8A898 /* success4.wav in Resources */,
 				EA293991246FE60000B8A898 /* coin1.mp3 in Resources */,
 				EA26186C2462A7EA00ADFE5C /* Preview Assets.xcassets in Resources */,
@@ -303,8 +333,10 @@
 				EA2618602462A7E300ADFE5C /* AppDelegate.swift in Sources */,
 				EA7AF2CC246FA1530004BDC4 /* NPCUI.swift in Sources */,
 				EA2CE767246CB775004B8A34 /* GameSuccessView.swift in Sources */,
+				EA8B674F2470E7DF00240747 /* StoryView.swift in Sources */,
 				EA2618652462A7E300ADFE5C /* WWDC20PlaygroundTest.xcdatamodeld in Sources */,
 				EA7AF2CE246FA1A90004BDC4 /* PlayerUI.swift in Sources */,
+				EA8B67512470E7F400240747 /* TutorialView.swift in Sources */,
 				EA29397D246FC55A00B8A898 /* BackgroundView.swift in Sources */,
 				EA2CE769246CB77F004B8A34 /* GameFailureView.swift in Sources */,
 				EA2618672462A7E300ADFE5C /* ContentView.swift in Sources */,

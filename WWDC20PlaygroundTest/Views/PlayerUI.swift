@@ -32,13 +32,17 @@ public struct PlayerView: View {
     @Binding var showPathPreview: Bool
     @Binding var gameEnded: Bool
     
+    @State var playerFailed = false
     @State var invalidMoveCount: Int = 0
     
-    public init(inputX: Binding<CGFloat>, inputY: Binding<CGFloat>, showPathPreview: Binding<Bool>, gameEnded: Binding<Bool>) {
+    var tutorialMode: Bool
+    
+    public init(inputX: Binding<CGFloat>, inputY: Binding<CGFloat>, showPathPreview: Binding<Bool>, gameEnded: Binding<Bool>, tutorialMode: Bool) {
         self._inputX = inputX
         self._inputY = inputY
         self._showPathPreview = showPathPreview
         self._gameEnded = gameEnded
+        self.tutorialMode = tutorialMode
     }
     
     
@@ -58,11 +62,18 @@ public struct PlayerView: View {
             Image(uiImage: UIImage(named: "Ninja_Circle")!)
                 .resizable()
                 .frame(width: playerSize, height: playerSize)
-//                .foregroundColor(playerColor)
+                //                .foregroundColor(playerColor)
                 // invalid move warning indication
                 .modifier(Shake(animatableData: CGFloat(invalidMoveCount)))
                 // movement animation
                 .animation(.playerMove)
+                .overlay(
+                    Circle()
+                        .foregroundColor(Color(UIColor.systemRed))
+                        .frame(width: playerSize, height: playerSize)
+                        .opacity((!self.tutorialMode && self.playerFailed) ? 0.9 : 0)
+                    .animation(.easeInOut)
+            )
             
         }
         .offset(showPathPreview ? newPosition : playerMove())
@@ -70,6 +81,18 @@ public struct PlayerView: View {
     }
     
     private func playerMove() -> CGSize {
+        
+        if tutorialMode {
+            let jump = destinationPreviewCalculation(inputX: inputX, inputY: inputY)
+            
+            currentPosition = CGSize(width: jump.width + newPosition.width, height: jump.height + newPosition.height)
+            
+            AVAudioPlayer.playSound(sound: "jump", type: "wav")
+            previousPosition = ScreenCoordinate(x: newPosition.width + viewWidth/2 , y: newPosition.height + viewHeight - playerSize/2)
+            newPosition = currentPosition
+            
+            return newPosition
+        }
         
         if endOnHold {
             return newPosition
@@ -103,17 +126,20 @@ public struct PlayerView: View {
                 // game ended
                 endOnHold = true
                 endTime = Date()
-                DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
+                
+                DispatchQueue.main.asyncAfter(deadline: .now() + 0.8) {
                     self.gameEnded = true
                 }
                 
                 if gameStatus.succeeded {
                     // player won
-                    print("player won")
                     playerWon = true
                 } else {
                     // player failed
-                    print("player lost")
+                    DispatchQueue.main.asyncAfter(deadline: .now() + 0.2) {
+                        self.playerFailed = true
+                    }
+                    
                     playerWon = false
                     
                 }
@@ -136,30 +162,20 @@ public struct PlayerView: View {
         let const: CGFloat = 10
         
         if vX <= 0 {
-            //            vX = -(-vX).squareRoot() * const
-            vX = -distanceFormula(input: -vX) * const
+            vX = -calculateMoveEstimate(input: -vX) * const
         } else {
-            //            vX = vX.squareRoot() * const
-            vX = distanceFormula(input: vX) * const
+            vX = calculateMoveEstimate(input: vX) * const
         }
         
         if vY <= 0 {
-            //            vY = -(-vY).squareRoot() * const
-            vY = -distanceFormula(input: -vY) * const
+            vY = -calculateMoveEstimate(input: -vY) * const
         } else {
-            //            vY = vY.squareRoot() * const
-            vY = distanceFormula(input: vY) * const
+            vY = calculateMoveEstimate(input: vY) * const
         }
         
         let result = CGSize(width: vX, height: vY)
         
         return result
-    }
-    
-    private func distanceFormula(input: CGFloat) -> CGFloat {
-        let square = input * input
-        let ans = 30 * square/(9999 + (square-input))
-        return ans
     }
     
 }

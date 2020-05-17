@@ -45,13 +45,23 @@ public func generateNPCCoords(viewWidth: CGFloat, viewHeight: CGFloat) -> [[Scre
     return resultCoords
 }
 
+public func playerArriveDest() -> Bool {
+    let playerCoord = getPlayerCoord()
+    if playerCoord.x <= viewWidth/2 + 2*mapIconSize &&
+        playerCoord.x >= viewWidth/2 - 2*mapIconSize &&
+        playerCoord.y <= 2*mapIconSize {
+        return true
+    }
+    return false
+}
+
 // check if game ends
 public func gameStateCheck() -> (ended: Bool, succeeded: Bool) {
     var isEnded = false
     var isSucceeded = false
     let playerPosition = getPlayerCoord()
     
-    if playerPosition.y < 0 {
+    if playerArriveDest() {
         isEnded = true
         isSucceeded = true
         return (isEnded, isSucceeded)

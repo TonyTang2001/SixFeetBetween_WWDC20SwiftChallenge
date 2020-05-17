@@ -11,13 +11,19 @@ import AVFoundation
 
 // MARK: - MapSetting
 struct GroundMapView: View {
+    var iconSize: CGFloat = mapIconSize
+    
     var body: some View {
         VStack {
-            Image(systemName: "house")
+            Image(uiImage: UIImage(named: "factory1")!)
+                .resizable()
+                .frame(width: iconSize, height: iconSize)
             
             Spacer()
             
-            Image(systemName: "house")
+            Image(uiImage: UIImage(named: "research")!)
+                .resizable()
+                .frame(width: iconSize, height: iconSize)
         }
     }
 }
@@ -40,7 +46,7 @@ struct InterfaceView: View {
             
             NPCMap(isDragging: $isDragging)
             
-            PlayerView(inputX: self.$xDistance, inputY: self.$yDistance, showPathPreview: self.$isDragging, gameEnded: $gameEnded)
+            PlayerView(inputX: self.$xDistance, inputY: self.$yDistance, showPathPreview: self.$isDragging, gameEnded: $gameEnded, tutorialMode: false)
             
         }
         .background(Color.white.opacity(0.00001))

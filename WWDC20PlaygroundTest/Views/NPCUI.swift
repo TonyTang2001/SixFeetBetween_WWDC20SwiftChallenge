@@ -9,11 +9,15 @@
 import Foundation
 import SwiftUI
 
-struct NPCInternalView: View {
+public struct NPCInternalView: View {
     
     @Binding var isDragging: Bool
     
-    var body: some View {
+    public init(isDragging: Binding<Bool>) {
+        self._isDragging = isDragging
+    }
+    
+    public var body: some View {
         ZStack {
             Image(systemName: "person.circle.fill")
                 .resizable()
@@ -32,7 +36,8 @@ struct NPCInternalView: View {
                         .animation(.npcTransition)
             )
         }
-            .drawingGroup() // enable off-screen Metal rendering
+            .frame(width: npcSize * 2, height: npcSize * 2)
+        .drawingGroup() // enable off-screen Metal rendering
     }
 }
 
@@ -40,9 +45,8 @@ struct NPCView: View {
     
     @Binding var isDragging: Bool
     
-    @State var index: Int
-    
-    @State var npcCurrentCoords: [ScreenCoordinate]
+    @State var index: Int = 0
+    @State var npcCurrentCoords: [ScreenCoordinate] = []
     
     var body: some View {
         

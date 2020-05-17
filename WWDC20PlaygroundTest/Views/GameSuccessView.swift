@@ -89,7 +89,6 @@ public struct GameSuccessView: View {
     
     public init() {}
     
-    let finalScore = 983
     let textOption = Int.random(in: 0..<5)
     let successSentences: [String] = ["You are a Hero!",
                                       "Lengendary!",

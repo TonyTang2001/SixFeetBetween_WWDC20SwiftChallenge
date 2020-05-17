@@ -24,6 +24,7 @@ public var viewWidth: CGFloat = 0
 public var viewHeight: CGFloat = 0
 
 // MARK: - Game Setting
+public let mapIconSize: CGFloat = 50
 public let npcCount: Int = 15
 public let npcSize: CGFloat = 30
 public let playerSize: CGFloat = 35

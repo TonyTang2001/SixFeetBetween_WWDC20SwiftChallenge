@@ -109,6 +109,7 @@ public func getGameRating(duration: Int) -> Int {
     }
 }
 
+// check if player is out of screen view
 public func playerOutOfView() -> Bool {
     let playerDest = getPlayerCoord()
     let playerLeftX = playerDest.x - playerSize/2
@@ -116,9 +117,17 @@ public func playerOutOfView() -> Bool {
     let playerTopY = playerDest.y - playerSize/2
     let playerBottomY = playerDest.y + playerSize/2
     
-    if playerLeftX < 0 || playerRightX > viewWidth || playerBottomY > viewHeight {
+    if playerLeftX < 0 || playerRightX > viewWidth ||
+        playerTopY < 0 || playerBottomY > viewHeight  {
         return true
     }
     
     return false
+}
+
+// calculate player destination using user dragging one-axis distance
+public func calculateMoveEstimate(input: CGFloat) -> CGFloat {
+    let square = input * input
+    let ans = 30 * square/(9999 + (square-input))
+    return ans
 }
