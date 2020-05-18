@@ -129,6 +129,7 @@ public struct ContentView: View {
             .blur(radius: gameEnded ? 26 : 0)
             
             GroundMapView()
+                .blur(radius: gameEnded ? 26 : 0)
             
             if gameEnded && playerWon {
                 GameSuccessView()

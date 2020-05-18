@@ -103,7 +103,7 @@ public struct PlayerView: View {
         currentPosition = CGSize(width: jump.width + newPosition.width, height: jump.height + newPosition.height)
         
         if playerOutOfView() {
-            return newPosition
+            
             // use async to prevent updating state variable during UI rerendering
             DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
                 // trigger shaking animation to indicate invalid move warning
@@ -113,7 +113,7 @@ public struct PlayerView: View {
                     self.showPathPreview = true
                 }
             }
-            
+            return newPosition
         } else {
             // valid move
             AVAudioPlayer.playSound(sound: "jump", type: "wav")
