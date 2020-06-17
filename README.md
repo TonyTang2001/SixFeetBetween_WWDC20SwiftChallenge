@@ -20,7 +20,7 @@ The latest Apple software technologies, including “SwiftUI,” its internal Me
 At the time of this commit, I just finished my first year of college as an international undergraduate at UCSD(University of California San Diego). Growing up as a techie, and now as a developer, I am aware of the importance of being supported and the feeling of belonging. Feel free to ask me any question you have encountered, and I am more than happy to help out if I am able to!
 
 Follow me at:
-GitHub: https://github.com/TonyTang2001
-Twitter: @TonyTang_here
-Weibo: @TonyTang_Dev and @TonyTang2001
-LinkedIn: Zixuan Tang
+- GitHub: https://github.com/TonyTang2001
+- Twitter: @TonyTang_here
+- Weibo: @TonyTang_Dev and @TonyTang2001
+- LinkedIn: Zixuan Tang
